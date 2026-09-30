@@ -9,5 +9,6 @@ Routing map: read a path only when its trigger applies.
 | Writing code or written records | `.repo-context/coding-style.md` |
 | Running Codex from another agent | `.repo-context/running-codex.md` |
 | Tool quirks and failed approaches | `.repo-context/learnings.md` (search, do not preload) |
+| Upgrading `bd` or migrating Beads databases | `docs/beads-upgrades.md` |
 | Checks before finishing | `.repo-context/verification.md` |
 | Task lifecycle and session close | `.beads/beads.md` |
