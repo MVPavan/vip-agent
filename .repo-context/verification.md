@@ -35,4 +35,12 @@ Run checks from the repo root.
    parent-repo path (`.repo-context/repo-map.md`).
 4. **Public-repo hygiene**: the diff has no secrets, credentials, personal data
    or machine-local absolute paths.
-5. **Git state**: inspect `git diff` and `git status`; stage explicit paths only.
+5. **Hub sync** (after changing `scripts/hub-sync.py`): every project must
+   report `OK`, and a second run must report `0 imported, 0 deleted`. Sources
+   must be unchanged: Dolt HEAD, `git status`, `.beads/last-touched` mtime.
+
+   ```bash
+   python3 scripts/hub-sync.py --check && python3 scripts/hub-sync.py
+   ```
+
+6. **Git state**: inspect `git diff` and `git status`; stage explicit paths only.
