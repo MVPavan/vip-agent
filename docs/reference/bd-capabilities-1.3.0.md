@@ -449,17 +449,22 @@ Drive bd from programs instead of by hand.
   (target another project), `--quiet`, `--verbose`, `--no-color`.
 - `bd serve` — An HTTP API (OpenAPI at `/v0`) over the same operations as
   the CLI, for clients that would otherwise spawn bd per call. Loopback only
-  unless given a token file; no TLS; hooks do not fire.
+  unless given a token file; no TLS; hooks do not fire. Requires a Dolt SQL
+  server: embedded workspaces refuse it (checked 2026-09-30).
 - `bd sql` — Raw SQL against the database, for debugging or queries the CLI
-  cannot express. Writes through it bypass the events journal.
+  cannot express. Writes through it bypass the events journal. Not supported
+  in embedded mode (checked 2026-09-30).
 - `bd batch` — Many writes (close, update, create, dep add/remove) in one
   transaction and one commit, all-or-nothing.
 - `bd completion` — Shell completion scripts.
   - `bd completion bash` / `zsh` / `fish` / `powershell` — One per shell.
 
-*Our use:* for the dashboard, `bd serve` or `--json` calls plus `bd schema`
-give a stable read interface without parsing text. `bd serve` exposes
-writes too, so a read-only dashboard must restrict itself to read endpoints.
+*Our use:* our projects run embedded Dolt, so `bd serve` and `bd sql` are
+unavailable. The dashboard reads through `--readonly --directory <project>`
+CLI calls with `--json` or `export`, typed with `bd schema`. Even under
+`--readonly`, `bd show` rewrites `.beads/last-touched`, the fallback target
+of an interactive `bd close` or `bd update` with no ID, so the dashboard
+must not call it (checked 2026-09-30).
 
 ## 15. Setup, configuration and diagnostics
 
@@ -554,5 +559,5 @@ Keep the database small and fast, and fix structural problems.
 - **Provenance** to tie beads to the commits and PRs that closed them.
 - **Formulas and molecules** for workflows we repeat (reviews, releases,
   upgrades like the 1.3.0 one).
-- **`bd serve` / `--json` / `bd schema` / `bd events`** as the dashboard's
-  data interface.
+- **`bd --readonly` with `export` and `--json` reads, typed by
+  `bd schema`,** as the dashboard's data interface.
