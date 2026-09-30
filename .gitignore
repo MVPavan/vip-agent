@@ -4,6 +4,7 @@
 *.db
 .beads-credential-key
 .beads/proxieddb/
+*.gate.lock*
 
 # Local scratch (temporary artifacts)
 scratchpad/

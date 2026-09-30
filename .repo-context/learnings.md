@@ -46,3 +46,7 @@ carried over from MVPavan/via.
   added a new unowned state. Design the state machine first, restate the
   requirement narrowly before adding a mechanism, and check whether the
   producer already keeps the data before designing durability for it.
+- A git worktree of a Beads project has no database of its own: `bd where`
+  resolves it to the main clone's `.beads/embeddeddolt` (bd 1.1.0,
+  2026-09-30). Treat worktrees as the same clone in sync and upgrade plans;
+  running `bd bootstrap` in one targets the shared database (inferred, not tested).
