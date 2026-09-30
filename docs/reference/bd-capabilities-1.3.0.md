@@ -296,10 +296,11 @@ Link work between projects and move beads between them.
   - `bd federation sync` — Pull from and push to peers with a conflict
     strategy.
 
-*Our use:* `bd repo` is one candidate way for the dashboard to see every
-project at once. It relies on each project's exported `issues.jsonl` and
-writes to the tracked config, so it needs evaluating against invariant 1
-(read-only over Beads) before use.
+*Our use:* `bd repo` only reads the other projects, but it lists their paths
+in the hub's tracked `config.yaml` (it reads no other file for this; checked
+in the 1.3.0 source), and `repo sync` pushes through the hub's Dolt remote.
+In a public hub that publishes the project list and every project's beads.
+It also reads the auto-exported JSONL rather than the live database.
 
 ## 9. Provenance, audit and change feeds
 

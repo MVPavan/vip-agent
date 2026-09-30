@@ -50,3 +50,12 @@ carried over from MVPavan/via.
   resolves it to the main clone's `.beads/embeddeddolt` (bd 1.1.0,
   2026-09-30). Treat worktrees as the same clone in sync and upgrade plans;
   running `bd bootstrap` in one targets the shared database (inferred, not tested).
+- A second Beads database inside this repo needs its own git repo. Inside the
+  parent repo, `bd init` resolves to the parent `.beads`, and so do
+  `BEADS_DIR` and `--directory`. `bd init` in a folder with its own `git init`
+  but no `.beads/config.yaml` bootstrapped from the parent config's
+  `sync.remote` (GitHub). Seed `<dir>/.beads/config.yaml` before `bd init`,
+  then check `bd dolt remote list` is empty (bd 1.3.0, 2026-09-30).
+- `bd repo sync` reads its repo list only from the tracked
+  `.beads/config.yaml`, not `config.local.yaml` (bd 1.3.0 source,
+  `cmd/bd/repo.go`), so it cannot keep project paths out of commits.
