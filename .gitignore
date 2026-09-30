@@ -4,3 +4,9 @@
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# Local scratch (temporary artifacts)
+scratchpad/
+
+# Machine-local configuration (tracked project paths, personal settings)
+*.local.*
