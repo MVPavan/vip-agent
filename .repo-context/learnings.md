@@ -59,3 +59,12 @@ carried over from MVPavan/via.
 - `bd repo sync` reads its repo list only from the tracked
   `.beads/config.yaml`, not `config.local.yaml` (bd 1.3.0 source,
   `cmd/bd/repo.go`), so it cannot keep project paths out of commits.
+- `bd init` (1.3.0, 2026-10-01) also runs the agent setup recipes: it writes
+  Claude, Codex and Cursor hooks, a `.agents/skills/beads` skill and managed
+  AGENTS.md/CLAUDE.md blocks. Over this harness it adds a second Claude
+  SessionStart `bd prime --hook-json` (double injection), merges four
+  `bd codex-hook` events next to ours, and appends an AGENTS.md block that
+  says to use `bd remember`. Test in a scratch repo; remove extras after init.
+- A fresh HOME starts bd usage metrics ON (`~/.config/bd/config.yaml`,
+  `metrics.disabled: false`); this machine's real HOME has them off. Sandbox
+  tests with a fake HOME should run `bd metrics off` first.
