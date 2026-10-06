@@ -3,19 +3,20 @@
 What `bd` can do and how it actually behaves, grouped by capability, with
 every command and subcommand and what we can use it for. This is the single
 source of truth for bd capabilities in this repository; the companion
-[full CLI reference](bd-cli-1.3.0.md) holds usage, examples and every flag.
+[full CLI reference](cli-1.3.0.md) holds usage, examples and every flag.
 
 Sources and labels:
 
 - Command lists come from the 1.3.0 `--help` text (2026-09-30).
 - **(tested)** marks behavior observed on bd 1.3.0 in a throwaway database
-  (2026-10-01 to 2026-10-05). **(source)** marks behavior read in the v1.3.0
+  (2026-10-01 to 2026-10-06). **(source)** marks behavior read in the v1.3.0
   source. **(reported)** marks an upstream issue or doc claim we did not
   reproduce. Unlabelled behavior comes from the help text.
 - The official docs at beads.gascity.com lag 1.3.0 and contradict its help
   text in many places; where they disagree with a tested or source claim
   here, this document wins. Nothing here was re-checked on v1.3.1.
-- *Our use* notes are recommendations, not bd behavior.
+- *Our use* notes are recommendations, not bd behavior. The policy agents
+  follow is the `beads` skill (`references/usage.md`).
 
 ## The model in one page
 
@@ -98,6 +99,80 @@ Sources and labels:
 - **Machine interfaces.** `--json` on every command, a JSON Schema
   (`bd schema`), an HTTP API (`bd serve`), raw SQL (`bd sql`) and an ordered
   events journal (`bd events`). `bd serve` and `bd sql` need server mode.
+
+## Fields, types, labels and gates in detail
+
+**Text and link fields** (schema from `bd schema`, flags from `--help`):
+
+| Field | Input | From a file | Writes | Author and time per entry |
+|---|---|---|---|---|
+| description | `-d` | `--body-file`, `--stdin` | replaces | no |
+| design | `--design` | `--design-file` (copies the text; not a link) | replaces | no |
+| acceptance_criteria | `--acceptance` | none | replaces | no |
+| notes | `bd note`, `--append-notes` | `bd note --file`, `--stdin` | appends (`--notes` replaces) | no |
+| comments | `bd comment`, `comments add` | `--file`, `--stdin` | append-only (no edit or delete command) | yes (`author`, `created_at`) |
+| close_reason | `close --reason` | `--reason-file` | set at close; `reopen` clears it (tested) | no |
+| spec_id | `--spec-id` | — | replaces; shown as "Spec:", filtered by `list --spec <prefix>`, nothing else reads it (source) | no |
+| external_ref, source_system | `--external-ref` | — | the tracker-sync join key | no |
+| metadata | `--metadata` JSON, `--set-metadata k=v` | `--metadata @file.json` | merge or replace; `bd:` and `_` keys reserved | no |
+| closed_by_session | `--session`, `CLAUDE_SESSION_ID` | — | set at close | — |
+
+There are no attachments. A file reaches a bead only as a text copy (the file
+flags above) or as a path or URL in a text or link field. Records kept beside
+beads:
+
+- **provenance:** kinds `cut`, `claim`, `suspend`, `resume`, `handoff`,
+  `commit`, `land`, `used`; ref kinds `git-sha`, `pr`, `branch`, `work-id`,
+  `transcript`; idempotent;
+- **audit:** `llm_call`, `tool_call`, `label` entries in
+  `.beads/interactions.jsonl`;
+- **event beads:** `event_kind`, `actor`, `target`, `payload`; created
+  closed (checked: 101 of 101 in the hub);
+- **gate beads:** `await_type`, `await_id`, `timeout`, `waiters`.
+
+**Types.** `bd lint` and `create --validate` expect these description
+headings (source, `types.go`):
+
+| Type | Expected headings |
+|---|---|
+| bug | Steps to Reproduce, Acceptance Criteria |
+| task, feature, story | Acceptance Criteria |
+| epic | Success Criteria (Acceptance Criteria also accepted) |
+| decision | Decision, Rationale, Alternatives Considered |
+| spike | Goal, Findings |
+| chore, milestone, custom types | none |
+
+A non-empty acceptance field satisfies the Acceptance Criteria (or Success
+Criteria) heading (source, `LintIssue`). `lint.sections.<type>` adds headings
+but never removes built-in ones. Custom types (`types.custom`) are accepted
+by `-t`, and an open bead of a custom type appears in `bd ready` (tested
+2026-10-06). Built-in types cannot be removed.
+
+**Statuses.** `deferred` applies to any type; `create -s deferred` creates a
+bead already deferred (tested). A `pinned` parent does not block its
+children (tested 2026-10-06).
+
+**Labels.** Free-form, case-sensitive strings with no registry. The only label
+bd's own code acts on is `human`, used by `bd human list`, `respond` and
+`dismiss` (source, `human.go`). `backlog` has no meaning in bd; it appears
+only in the Linear and Notion state mappings (source). Children created with
+`--parent` copy all of the parent's labels (tested). `set-state` writes
+exclusive `dimension:value` labels.
+
+**Gates.** Types and how each resolves:
+
+| Type | `bd gate check` resolves it when | Escalates when |
+|---|---|---|
+| `timer` | now is later than created + timeout | — |
+| `gh:run` | the run completed with success | it failed or was cancelled |
+| `gh:pr` | the PR merged | the PR closed unmerged |
+| `bead` | the target bead closed (tested) | — |
+| `human` | never: `bd gate resolve` only | — |
+| any other name | never: accepted without validation, ignored by `check` (tested 2026-10-06) | — |
+
+`bd gate resolve <id> --reason` records the reason as the gate's close
+reason. The blocked bead returns to `ready` only when its last open gate
+closes (tested). A `human` gate does not appear in `bd human list`.
 
 ## 1. Capture and edit work
 
@@ -733,7 +808,7 @@ Initialise projects, configure them, and find out what bd is actually using.
   terminal needs `--destroy-token=DESTROY-<prefix>` and returns exit codes 10
   to 12. Inside another repo it resolves to the parent's `.beads` unless the
   folder has its own git repo and a seeded `.beads/config.yaml`
-  (`.repo-context/learnings.md`).
+  (tested 2026-09-30).
 - `bd init-safety` — Explains `init`'s safety rules, the destroy-token
   format and refusal exit codes.
 - `bd config` — Project settings (integrations, custom statuses and types,
@@ -817,7 +892,7 @@ to most severe:
 - `bd rename-prefix` — Change the ID prefix everywhere, or consolidate mixed
   prefixes.
 - `bd migrate` — Schema and layout changes; procedure and principles in
-  [docs/beads-upgrades.md](../beads-upgrades.md).
+  [upgrades](upgrades.md).
   - `bd migrate schema` — Apply pending schema migrations explicitly.
   - `bd migrate hooks` — Convert hook files to the marker-managed format.
   - `bd migrate sync` — Commit issue data to a dedicated branch.

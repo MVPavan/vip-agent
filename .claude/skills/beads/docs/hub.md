@@ -39,7 +39,8 @@ full import) took 42s; a sync with no changes takes 3s and writes nothing.
 they read the repo list only from the tracked `.beads/config.yaml`, which
 would put tracked-project paths into a public commit. They read each
 project's auto-exported JSONL rather than its database, and they sync through
-the Dolt remote. Details are in `.repo-context/learnings.md`.
+the Dolt remote. Details are in the `beads` skill
+(`references/usage.md` §19).
 
 ## Reading the hub
 

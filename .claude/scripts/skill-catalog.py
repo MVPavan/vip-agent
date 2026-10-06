@@ -50,6 +50,8 @@ WRITE_CMD = "python3 .claude/scripts/skill-catalog.py --write"
 # being referenced so the list stays minimal.
 ALLOWED_SLASHES: dict[str, str] = {
     "/subtask": "builtin",  # Claude Code full-context fork; agent-matrix context modes
+    "/v0": "http-route",  # bd serve's OpenAPI path, beads skill docs
+    "/healthz": "http-route",  # bd serve's health endpoint, beads skill docs
 }
 
 # `.claude/...` path tokens that legitimately name nothing on disk (an

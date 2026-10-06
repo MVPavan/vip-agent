@@ -4,8 +4,9 @@ Verified, likely-to-recur patterns: tool quirks, failed approaches, and
 gotchas that would cost the next agent time. Add an entry only when it is
 verified and likely to recur; state the pattern, the evidence (repo-relative
 path, command, or version), and the fix. Design decisions belong in the
-design record (`docs/`), not here. Entries dated before 2026-09-30 were
-carried over from MVPavan/via.
+design record (`docs/`), not here. Beads (`bd`) traps live in the `beads`
+skill (`.claude/skills/beads/references/usage.md` §19). Entries dated before
+2026-09-30 were carried over from MVPavan/via.
 
 - `codex exec -c` silently accepted invalid keys or values on CLI 0.144.1,
   including a bogus effort value. Validate safety-critical overrides before
@@ -16,13 +17,6 @@ carried over from MVPavan/via.
 - Writing a Codex review brief with an unquoted heredoc (`<<EOF`) executes
   backticked names as commands and silently drops them from the brief. Use
   `<<'EOF'`, and check the brief before launch.
-- Codex review sandboxes (`-s read-only`) cannot open the Beads database.
-  Paste the relevant Beads notes into the review brief rather than citing
-  `bd show`.
-- Claude Code cloud sessions (2026-09-25): `git push` works once the Claude
-  GitHub App covers the repo, but `bd dolt push` gets HTTP 403 from the
-  session's git proxy. Cloud sessions carry Beads changes back through the
-  committed `.beads/issues.jsonl` / `interactions.jsonl`; sync Dolt locally.
 - `claude --cloud` (CLI 2.1.283, 2026-09-27) decides clone vs upload by asking
   claude.ai whether the Claude GitHub App is installed on the repo. If the
   answer is empty ("status is null" in `--debug-file` output) it uploads a
@@ -33,11 +27,6 @@ carried over from MVPavan/via.
   2.1.283) log each message's stream-start usage: `output_tokens` is 2–16,
   never the final count; input and cache fields are complete. Estimate
   subagent output from content size and label it an estimate.
-- `bd init` inside a checkout nested in another beads repo can bootstrap the
-  outer repo's issue database. Initialize from a standalone clone.
-- `bd init` (1.1.0, 2026-09-30) commits its own files ("bd init: initialize
-  beads issue tracking"), including any already-present files it adopts, and
-  sets `sync.remote` from the git `origin`. Inspect `git log` after init.
 - Local implementer workers have committed trees that fail the gate despite
   the brief; once a `| tail -1` pipe hid the failing exit status. Dispatch
   must say: run the gate in order, stop at the first failure, never pipe a
@@ -46,25 +35,3 @@ carried over from MVPavan/via.
   added a new unowned state. Design the state machine first, restate the
   requirement narrowly before adding a mechanism, and check whether the
   producer already keeps the data before designing durability for it.
-- A git worktree of a Beads project has no database of its own: `bd where`
-  resolves it to the main clone's `.beads/embeddeddolt` (bd 1.1.0,
-  2026-09-30). Treat worktrees as the same clone in sync and upgrade plans;
-  running `bd bootstrap` in one targets the shared database (inferred, not tested).
-- A second Beads database inside this repo needs its own git repo. Inside the
-  parent repo, `bd init` resolves to the parent `.beads`, and so do
-  `BEADS_DIR` and `--directory`. `bd init` in a folder with its own `git init`
-  but no `.beads/config.yaml` bootstrapped from the parent config's
-  `sync.remote` (GitHub). Seed `<dir>/.beads/config.yaml` before `bd init`,
-  then check `bd dolt remote list` is empty (bd 1.3.0, 2026-09-30).
-- `bd repo sync` reads its repo list only from the tracked
-  `.beads/config.yaml`, not `config.local.yaml` (bd 1.3.0 source,
-  `cmd/bd/repo.go`), so it cannot keep project paths out of commits.
-- `bd init` (1.3.0, 2026-10-01) also runs the agent setup recipes: it writes
-  Claude, Codex and Cursor hooks, a `.agents/skills/beads` skill and managed
-  AGENTS.md/CLAUDE.md blocks. Over this harness it adds a second Claude
-  SessionStart `bd prime --hook-json` (double injection), merges four
-  `bd codex-hook` events next to ours, and appends an AGENTS.md block that
-  says to use `bd remember`. Test in a scratch repo; remove extras after init.
-- A fresh HOME starts bd usage metrics ON (`~/.config/bd/config.yaml`,
-  `metrics.disabled: false`); this machine's real HOME has them off. Sandbox
-  tests with a fake HOME should run `bd metrics off` first.

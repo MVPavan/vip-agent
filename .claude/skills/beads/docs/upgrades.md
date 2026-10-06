@@ -89,7 +89,8 @@ So before migrating:
 - push and pull with the old binary;
 - confirm a second pull has nothing new;
 - absorb any Beads changes that arrive by other channels, such as committed
-  `issues.jsonl` from cloud sessions (`.repo-context/learnings.md`).
+  `issues.jsonl` from cloud sessions (`beads` skill, `references/usage.md`
+  §19).
 
 Also check for uncommitted clone-local state: dirty ignored tables block
 migration with no loss-free recovery (upstream #5816).
