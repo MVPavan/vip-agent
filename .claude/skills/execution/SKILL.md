@@ -36,7 +36,7 @@ pre-existing edits are not automatically part of the task.
 ## Task loop
 
 1. Read the request, existing plan if any, and Beads description/acceptance.
-   Claim the exact task with `--actor "<runtime>:<session-or-purpose>"`.
+   Claim the exact task with `--actor "<coding-agent>:<unique-id>"`.
 2. Implement in dependency order, within owned paths. Use test-first or
    characterization when risk calls for it; apply security to material boundary
    changes and debugging when a failure's cause is unclear.
@@ -56,14 +56,16 @@ For a task epic, map plan tasks to its stage IDs and use the phase close gate.
 
 1. Resolve the supplied or unambiguous roadmap and read this phase's deliverables,
    spec references, acceptance, risk and exit criterion. Query
-   `bd list -t epic -l ws-<name> --json`: exactly one epic title must start with
-   `[<phase-id>]`. Legacy records may use `bd list --spec <roadmap.md> --json`.
+   `bd list -t epic --all --spec docs/workstreams/<name>/ --json`: exactly one
+   epic title must start with `[<phase-id>]`. The roadmap anchor (`spec_id`) is
+   authoritative; older epics may also carry a `ws-<name>` label.
    Zero/duplicate matches are a tracking defect; do not silently re-seed.
 2. Confirm the epic is not already closed, check blockers and claim the phase.
    Elaborate a deep phase when its packet
    needs a plan; reuse approval covering this work rather than pausing again.
-3. Select a ready direct child from `bd ready --parent <epic> --json`, claim that
-   exact ID, and execute its mapped plan tasks in dependency order. Missing or
+3. Select a ready direct child from `bd ready --parent <epic> --json`, keeping
+   only beads whose `parent` is the epic (the query returns every descendant).
+   Claim that exact ID, and execute its mapped plan tasks in dependency order. Missing or
    unmatched `Stage:` mappings require plan correction before dependent work.
 4. Verify each stage's acceptance before closing it. Regenerate tracking with
    the beads skill's `scripts/bd-render-tracking.sh` where available and authorized;
