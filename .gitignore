@@ -11,6 +11,6 @@ scratchpad/
 
 # Machine-local configuration (tracked project paths, personal settings)
 *.local.*
-# Local hub database mirroring every tracked project's beads (docs/hub.md)
+# Local hub database mirroring every tracked project's beads (.claude/skills/beads/docs/hub.md)
 /hub.local/
 __pycache__/

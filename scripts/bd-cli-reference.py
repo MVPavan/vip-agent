@@ -4,7 +4,7 @@
 Walks every command and subcommand recursively and records usage, aliases,
 examples, local flags and global flags. `--help` never opens a database.
 
-    python3 scripts/bd-cli-reference.py > docs/reference/bd-cli-<version>.md
+    python3 scripts/bd-cli-reference.py > .claude/skills/beads/docs/cli-<version>.md
 """
 import os
 import re

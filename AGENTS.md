@@ -25,8 +25,9 @@ Apply First Principles Thinking to every problem; deliver correct work with the 
 - Verify changing tool/provider facts and unfamiliar APIs against official docs
   or implementation. Surface conflicts with recorded architectural decisions.
 - Handoffs retain scope, decisions, source references, verification, and unresolved
-  work. Record verified, likely-to-recur patterns in `.repo-context/learnings.md`;
-  write other persistent memory only when requested.
+  work. Record verified, likely-to-recur patterns in `.repo-context/learnings.md`
+  (Beads traps go in the `beads` skill's `references/usage.md`); write other
+  persistent memory only when requested.
 
 ## Implementation and effort
 
@@ -109,6 +110,6 @@ Keep conditional references as plain paths, not automatic imports.
 
 ## Track durable work
 
-- Use Beads (`bd`) to track durable work; follow `.beads/beads.md` for task lifecycle,
-  actor attribution, and session closeout. Run `bd prime` when runtime context
-  has not already been supplied or needs recovery.
+- Use Beads (`bd`) to track durable work. Its core rules arrive at session start
+  through `bd prime`; the `beads` skill holds the full policy, setup and session
+  closeout. Run `bd prime` when that context is missing or needs recovery.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mirror every registered project's beads into the local hub database.
 
-vip-agent is the hub over the owner's projects (docs/hub.md). The hub is a
+vip-agent is the hub over the owner's projects (.claude/skills/beads/docs/hub.md). The hub is a
 separate Beads database in hub.local/: gitignored, with its own git repo and
 no Dolt remote, so nothing it holds leaves the machine. Project paths come
 from the gitignored projects.local.json (see projects.example.json).
