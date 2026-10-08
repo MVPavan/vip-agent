@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bodha site — draft directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=Tiro+Devanagari+Sanskrit&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a2218; --paper:#f6f0e4; --saffron:#c8641e; --indigo:#2f3a6b; --leaf:#4f7a4a; --line:#d9cdb6;
+    --live:#3f7d4a; --dev:#b7791f; --plan:#6b7280;
+  }
+  html,body{margin:0;background:transparent;color:var(--foreground,#222);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.55}
+  .wrap{display:flex;flex-direction:column;gap:28px}
+  h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:19px;margin:0 0 4px}
+  .sub{color:var(--muted-foreground,#777);margin:0 0 12px;font-size:13px}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  .card{border:1px solid var(--border,#ddd);border-radius:var(--radius,10px);padding:14px;background:var(--card,transparent)}
+  .card b{display:block;margin-bottom:4px}
+  .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground,#888)}
+  /* page-structure wireframe */
+  .wire{display:flex;flex-direction:column;gap:6px}
+  .row{display:grid;grid-template-columns:28px 160px 1fr;gap:10px;align-items:start;border:1px solid var(--border,#ddd);border-radius:8px;padding:10px 12px}
+  .row .n{font-family:'JetBrains Mono',monospace;color:var(--saffron)}
+  .row .t{font-weight:600}
+  .row .d{color:var(--muted-foreground,#666);font-size:13px}
+  .chip{display:inline-block;white-space:nowrap;font-size:10.5px;font-weight:600;letter-spacing:.04em;padding:1px 7px;border-radius:99px;color:#fff;vertical-align:1px;margin-left:4px}
+  .live{background:var(--live)} .dev{background:var(--dev)} .plan{background:var(--plan)}
+  /* paper panels (mock of site) */
+  .paper{background:var(--paper);color:var(--ink);border-radius:var(--radius,12px);padding:24px}
+  .night{background:#121530;color:#e9e4d6;border-radius:var(--radius,12px);padding:24px}
+  svg text{font-family:Inter,system-ui,sans-serif}
+  .serif{font-family:Fraunces,Georgia,serif}
+  .deva{font-family:'Tiro Devanagari Sanskrit',serif}
+  .heroA h1{font-family:Fraunces,serif;font-weight:600;font-size:34px;line-height:1.1;margin:6px 0 10px}
+  .heroA .deva{font-size:46px;color:var(--saffron);line-height:1}
+  .btn{display:inline-block;padding:8px 14px;border-radius:8px;font-weight:600;font-size:13px;margin-right:8px}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl td,.tbl th{border-bottom:1px solid var(--border,#ddd);padding:7px 6px;text-align:left;vertical-align:top}
+  .tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-foreground,#888);font-weight:600}
+  .fig{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8a7a60;letter-spacing:.06em;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 1. What the reference sites teach -->
+<section>
+  <h2>1 · What strong memory-company sites do</h2>
+  <p class="sub">Read today: Mem0, Letta, Zep, Supermemory. Each has one idea worth borrowing.</p>
+  <div class="grid3">
+    <div class="card"><span class="k">Letta</span><b>Manifesto + research cards</b>"Machines that learn." Short thesis, then dated research cards (MemGPT, Sleep-time Compute). Reads like a lab, not a vendor.</div>
+    <div class="card"><span class="k">Supermemory</span><b>Thesis, then "Figure 1"</b>An argument up top, then a numbered architecture figure (inputs → learner → memory → agent). Treats the site like a paper.</div>
+    <div class="card"><span class="k">Zep</span><b>Classical art + one great diagram</b>19th-century paintings as section bands; a knowledge-graph figure with an "UNTIL MAR 2026" tag showing facts that expire.</div>
+    <div class="card"><span class="k">Mem0</span><b>Three verbs</b>"Add → Learn → Retrieve." The whole system in three words, plus a copyable code sample.</div>
+  </div>
+  <p class="sub" style="margin-top:10px"><b>For Bodha:</b> Letta's manifesto tone + Supermemory's numbered figures + Zep's classical imagery — but with Indian manuscript aesthetics instead of Western paintings. None of the four has a philosophical origin story; that is Bodha's unclaimed ground.</p>
+</section>
+
+<!-- 2. Page structure -->
+<section>
+  <h2>2 · Proposed page, top to bottom</h2>
+  <p class="sub">One scrolling page. Vision first, then proof, then the road ahead.</p>
+  <div class="wire">
+    <div class="row"><span class="n">01</span><span class="t">Hero</span><span class="d"><span class="deva">बोध</span> large · "Memory that sleeps, learns, forgets." · one line: memory for AI agents, designed from the Yogic model of the mind · [Request early access]</span></div>
+    <div class="row"><span class="n">02</span><span class="t">The problem</span><span class="d">Agents forget everything, or remember everything and drown in stale, contradictory facts. Three lines, no diagram.</span></div>
+    <div class="row"><span class="n">03</span><span class="t">The insight</span><span class="d">Fig. 1 — three lenses (Yoga · neuroscience · engineering) arrive at one rule: <i>reasoning decides what to keep; storage only holds.</i> Pull-quote from your v1.1 design.</span></div>
+    <div class="row"><span class="n">04</span><span class="t">The mind-stack</span><span class="d">Fig. 2 — the centrepiece. Each faculty: Devanagari, meaning, what it does. Hover/tap for detail.</span></div>
+    <div class="row"><span class="n">05</span><span class="t">The life of a memory</span><span class="d">Fig. 3 — perceive → ground → judge → keep → recall → sleep → tendency. Each step carries a status chip.</span></div>
+    <div class="row"><span class="n">06</span><span class="t">Principles</span><span class="d">Four cards: evidence for every memory · correction is not deletion · identity is fixed, habits are learned · people never bleed into each other.</span></div>
+    <div class="row"><span class="n">07</span><span class="t">Where we are</span><span class="d">Live / In development / Planned table + the numbers that hold up (0 leaks, 97.6% recall@10), each labelled "internal evaluation".</span></div>
+    <div class="row"><span class="n">08</span><span class="t">Founder · access</span><span class="d">Name, one line, LinkedIn, email, early-access button. Footer: "Bodha (बोध) — understanding."</span></div>
+  </div>
+</section>
+
+<!-- 3. Fig 1: three lenses -->
+<section>
+  <h2>3 · Draft figures</h2>
+  <p class="sub">Shown here in the "Treatise" style (option A below). All are inline SVG — no images to host.</p>
+  <div class="paper">
+    <div class="fig">FIG. 1 — THREE LENSES, ONE RULE</div>
+    <svg viewBox="0 0 680 230" width="100%" role="img" aria-label="Yoga, neuroscience and engineering converge on one rule">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8a7a60"/></marker></defs>
+      <g font-size="12" fill="#2a2218">
+        <rect x="10" y="10" width="200" height="92" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="110" y="34" text-anchor="middle" font-weight="600" fill="#c8641e">Yoga · Sāṅkhya</text>
+        <text x="110" y="56" text-anchor="middle">Dhṛti belongs to Buddhi,</text>
+        <text x="110" y="74" text-anchor="middle">not to Citta</text>
+        <rect x="240" y="10" width="200" height="92" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="340" y="34" text-anchor="middle" font-weight="600" fill="#2f3a6b">Neuroscience</text>
+        <text x="340" y="56" text-anchor="middle">Hippocampus gates what is kept;</text>
+        <text x="340" y="74" text-anchor="middle">neocortex stores it</text>
+        <rect x="470" y="10" width="200" height="92" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="570" y="34" text-anchor="middle" font-weight="600" fill="#4f7a4a">Engineering</text>
+        <text x="570" y="56" text-anchor="middle">Write authority lives in the</text>
+        <text x="570" y="74" text-anchor="middle">application, not the database</text>
+        <path d="M110,104 C110,140 300,140 330,160" fill="none" stroke="#8a7a60" marker-end="url(#ar)"/>
+        <path d="M340,104 L340,158" fill="none" stroke="#8a7a60" marker-end="url(#ar)"/>
+        <path d="M570,104 C570,140 380,140 350,160" fill="none" stroke="#8a7a60" marker-end="url(#ar)"/>
+        <rect x="140" y="164" width="400" height="56" rx="12" fill="#2a2218"/>
+        <text x="340" y="188" text-anchor="middle" fill="#f6f0e4" font-family="Fraunces,serif" font-size="16">Reasoning decides what to keep.</text>
+        <text x="340" y="208" text-anchor="middle" fill="#e8b98f" font-size="12">Storage only holds.</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="paper" style="margin-top:14px">
+    <div class="fig">FIG. 2 — THE MIND-STACK (अन्तःकरण, THE INNER INSTRUMENT)</div>
+    <svg viewBox="0 0 680 470" width="100%" role="img" aria-label="Bodha mind-stack architecture">
+      <defs>
+        <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c8641e"/></marker>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f3a6b"/></marker>
+        <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4f7a4a"/></marker>
+      </defs>
+      <g font-size="11.5" fill="#2a2218">
+        <!-- Indriyas -->
+        <rect x="200" y="8" width="280" height="50" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="216" y="30" class="deva" font-size="17" fill="#c8641e">इन्द्रिय</text>
+        <text x="282" y="29" font-weight="600">Indriyas · the senses</text>
+        <text x="282" y="46" fill="#6b5d48">messages, tools, documents</text>
+        <!-- Ahankara / Vasana -->
+        <rect x="8" y="78" width="170" height="50" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="20" y="99" font-weight="600">Ahaṅkāra · the I-maker</text>
+        <text x="20" y="116" fill="#6b5d48">fixed identity, never rewritten</text>
+        <rect x="8" y="140" width="170" height="50" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="20" y="161" font-weight="600">Vāsanā · tendencies</text>
+        <text x="20" y="178" fill="#6b5d48">learned habits</text>
+        <!-- Manas -->
+        <rect x="200" y="86" width="280" height="56" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="216" y="112" class="deva" font-size="17" fill="#c8641e">मनस्</text>
+        <text x="282" y="109" font-weight="600">Manas · the working mind</text>
+        <text x="282" y="127" fill="#6b5d48">assembles context; does not reason</text>
+        <path d="M178,103 L198,108" stroke="#8a7a60" fill="none" marker-end="url(#ar)"/>
+        <path d="M178,150 L198,134" stroke="#8a7a60" fill="none" marker-end="url(#ar)"/>
+        <path d="M340,58 L340,84" stroke="#8a7a60" fill="none" marker-end="url(#ar)"/>
+        <!-- Buddhi big -->
+        <rect x="150" y="166" width="380" height="120" rx="14" fill="#f3e3cc" stroke="#c8641e"/>
+        <text x="166" y="192" class="deva" font-size="17" fill="#c8641e">बुद्धि</text>
+        <text x="216" y="190" font-weight="600">Buddhi · the discerning intellect — reasons, decides</text>
+        <rect x="166" y="206" width="160" height="66" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="178" y="228" class="deva" font-size="15" fill="#2f3a6b">धी</text>
+        <text x="200" y="228" font-weight="600">Dhī · insight</text>
+        <text x="178" y="246" fill="#6b5d48">plans how to search</text>
+        <text x="178" y="262" fill="#6b5d48">memory for each question</text>
+        <rect x="354" y="206" width="160" height="66" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="366" y="228" class="deva" font-size="15" fill="#c8641e">धृति</text>
+        <text x="398" y="228" font-weight="600">Dhṛti · resolve</text>
+        <text x="366" y="246" fill="#6b5d48">the write gate: nothing is</text>
+        <text x="366" y="262" fill="#6b5d48">kept without evidence</text>
+        <path d="M340,142 L340,164" stroke="#8a7a60" fill="none" marker-end="url(#ar)"/>
+        <!-- Smrti -->
+        <rect x="40" y="306" width="200" height="56" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+        <text x="52" y="330" class="deva" font-size="16" fill="#2f3a6b">स्मृति</text>
+        <text x="104" y="329" font-weight="600">Smṛti · recollection</text>
+        <text x="104" y="347" fill="#6b5d48">runs the search</text>
+        <path d="M200,272 L182,304" stroke="#2f3a6b" fill="none" marker-end="url(#ar2)"/>
+        <!-- Citta -->
+        <rect x="150" y="390" width="380" height="70" rx="14" fill="#2a2218"/>
+        <text x="166" y="418" class="deva" font-size="18" fill="#e8b98f">चित्त</text>
+        <text x="216" y="416" font-weight="600" fill="#f6f0e4">Citta · the field of impressions</text>
+        <text x="216" y="436" fill="#d8ccb6">holds Saṁskāras (memories) with their history</text>
+        <text x="216" y="452" fill="#d8ccb6">— never decides what to keep</text>
+        <path d="M434,272 L434,388" stroke="#c8641e" stroke-width="2" fill="none" marker-end="url(#aw)"/>
+        <text x="442" y="336" fill="#c8641e" font-weight="600">write</text>
+        <path d="M200,390 C170,380 130,372 130,364" stroke="#2f3a6b" fill="none" marker-end="url(#ar2)"/>
+        <text x="96" y="388" fill="#2f3a6b" font-weight="600">recall</text>
+        <path d="M84,306 C84,270 110,252 146,250" stroke="#2f3a6b" stroke-dasharray="3 3" fill="none" marker-end="url(#ar2)"/><text x="40" y="296" fill="#2f3a6b" font-size="10.5">results</text>
+        <!-- Dharana loop -->
+        <rect x="548" y="330" width="126" height="92" rx="12" fill="#eef3ea" stroke="#4f7a4a"/>
+        <text x="560" y="352" class="deva" font-size="15" fill="#4f7a4a">धारणा</text>
+        <text x="560" y="370" font-weight="600">Dhāraṇā · sleep</text>
+        <text x="560" y="387" fill="#4a5a44">consolidates,</text>
+        <text x="560" y="402" fill="#4a5a44">resolves conflicts,</text>
+        <text x="560" y="417" fill="#4a5a44">forms tendencies</text>
+        <path d="M546,400 C530,420 535,432 532,432" stroke="#4f7a4a" fill="none" marker-end="url(#ag)"/>
+        <path d="M611,330 L611,155 L190,155 L181,165" stroke="#4f7a4a" stroke-dasharray="4 3" fill="none" marker-end="url(#ag)"/>
+      </g>
+    </svg>
+    <div style="font-size:12px;color:#6b5d48;margin-top:6px">Orange = how a memory is written · indigo = how it is recalled · green = what happens during "sleep".</div>
+  </div>
+
+  <div class="paper" style="margin-top:14px">
+    <div class="fig">FIG. 3 — THE LIFE OF A MEMORY</div>
+    <svg viewBox="0 0 680 190" width="100%" role="img" aria-label="Lifecycle of a memory with status">
+      <g font-size="11.5" fill="#2a2218">
+        <!-- 7 steps -->
+        <g>
+          <rect x="4" y="20" width="86" height="96" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+          <text x="47" y="44" text-anchor="middle" font-weight="600">Perceive</text>
+          <text x="47" y="62" text-anchor="middle" fill="#6b5d48">extract facts</text>
+          <text x="47" y="77" text-anchor="middle" fill="#6b5d48">from a turn</text>
+          <rect x="17" y="92" width="60" height="16" rx="8" fill="#3f7d4a"/><text x="47" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">LIVE</text>
+        </g>
+        <g>
+          <rect x="100" y="20" width="86" height="96" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+          <text x="143" y="44" text-anchor="middle" font-weight="600">Ground</text>
+          <text x="143" y="62" text-anchor="middle" fill="#6b5d48">attach the exact</text>
+          <text x="143" y="77" text-anchor="middle" fill="#6b5d48">source quote</text>
+          <rect x="113" y="92" width="60" height="16" rx="8" fill="#3f7d4a"/><text x="143" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">LIVE</text>
+        </g>
+        <g>
+          <rect x="196" y="20" width="86" height="96" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+          <text x="239" y="44" text-anchor="middle" font-weight="600">Judge</text>
+          <text x="239" y="62" text-anchor="middle" fill="#6b5d48">new, update, or</text>
+          <text x="239" y="77" text-anchor="middle" fill="#6b5d48">contradiction?</text>
+          <rect x="203" y="92" width="72" height="16" rx="8" fill="#b7791f"/><text x="239" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">IN DEV</text>
+        </g>
+        <g>
+          <rect x="292" y="20" width="86" height="96" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+          <text x="335" y="44" text-anchor="middle" font-weight="600">Keep</text>
+          <text x="335" y="62" text-anchor="middle" fill="#6b5d48">store with history;</text>
+          <text x="335" y="77" text-anchor="middle" fill="#6b5d48">never overwrite</text>
+          <rect x="305" y="92" width="60" height="16" rx="8" fill="#3f7d4a"/><text x="335" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">LIVE</text>
+        </g>
+        <g>
+          <rect x="388" y="20" width="86" height="96" rx="10" fill="#fff8ec" stroke="#d9cdb6"/>
+          <text x="431" y="44" text-anchor="middle" font-weight="600">Recall</text>
+          <text x="431" y="62" text-anchor="middle" fill="#6b5d48">plan, search,</text>
+          <text x="431" y="77" text-anchor="middle" fill="#6b5d48">rank</text>
+          <rect x="401" y="92" width="60" height="16" rx="8" fill="#3f7d4a"/><text x="431" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">LIVE</text>
+        </g>
+        <g>
+          <rect x="484" y="20" width="86" height="96" rx="10" fill="#eef3ea" stroke="#4f7a4a"/>
+          <text x="527" y="44" text-anchor="middle" font-weight="600">Sleep</text>
+          <text x="527" y="62" text-anchor="middle" fill="#6b5d48">consolidate,</text>
+          <text x="527" y="77" text-anchor="middle" fill="#6b5d48">resolve, forget</text>
+          <rect x="491" y="92" width="72" height="16" rx="8" fill="#b7791f"/><text x="527" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">IN DEV</text>
+        </g>
+        <g>
+          <rect x="580" y="20" width="96" height="96" rx="10" fill="#eef3ea" stroke="#4f7a4a"/>
+          <text x="628" y="44" text-anchor="middle" font-weight="600">Tendency</text>
+          <text x="628" y="62" text-anchor="middle" fill="#6b5d48">experience</text>
+          <text x="628" y="77" text-anchor="middle" fill="#6b5d48">becomes habit</text>
+          <rect x="592" y="92" width="72" height="16" rx="8" fill="#b7791f"/><text x="628" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">IN DEV</text>
+        </g>
+        <path d="M628,118 C628,170 47,170 47,120" fill="none" stroke="#4f7a4a" stroke-dasharray="4 3"/>
+        <text x="338" y="178" text-anchor="middle" fill="#4f7a4a">tendencies shape what the next turn perceives</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- 4. Status table -->
+<section>
+  <h2>4 · "Where we are" block (draft copy)</h2>
+  <table class="tbl">
+    <tr><th>Capability</th><th>Status</th><th>Proof on the page</th></tr>
+    <tr><td>Every memory carries its source quote</td><td><span class="chip live">Live</span></td><td>Enforced on every write</td></tr>
+    <tr><td>Inspect · correct · forget, with an audit trail</td><td><span class="chip live">Live</span></td><td>Correction keeps history; nothing silently overwritten</td></tr>
+    <tr><td>People never bleed into each other</td><td><span class="chip live">Live</span></td><td>0 cross-person leaks in a shared two-person test</td></tr>
+    <tr><td>Question-aware recall</td><td><span class="chip live">Live</span></td><td>97.6% of target memories in top 10 (internal HaluMem probes)</td></tr>
+    <tr><td>Tracking facts that change over time</td><td><span class="chip dev">In development</span></td><td>—</td></tr>
+    <tr><td>Sleep: consolidation & contradiction repair</td><td><span class="chip dev">In development</span></td><td>—</td></tr>
+    <tr><td>Vāsanā: learned behavioural tendencies</td><td><span class="chip dev">In development</span></td><td>—</td></tr>
+    <tr><td>Document memory · MCP integration</td><td><span class="chip plan">Planned</span></td><td>—</td></tr>
+  </table>
+</section>
+
+<!-- 5. Style directions -->
+<section>
+  <h2>5 · Two style directions</h2>
+  <div class="two">
+    <div class="paper heroA">
+      <div class="k" style="color:#8a7a60">A · Treatise (recommended)</div>
+      <div class="deva" style="margin-top:10px">बोध</div>
+      <h1>Memory that sleeps,<br>learns, forgets.</h1>
+      <p style="margin:0 0 14px;color:#5a4d3a">Memory for AI agents, designed from the Yogic model of the mind.</p>
+      <span class="btn" style="background:#2a2218;color:#f6f0e4">Request early access</span><span class="btn" style="border:1px solid #2a2218">Read the design</span>
+      <p style="font-size:12px;color:#8a7a60;margin:14px 0 0">Warm paper, ink, saffron. Serif headings, numbered figures. Reads like a manuscript or research paper. Matches the philosophy; stands out from every dark "AI infra" site.</p>
+    </div>
+    <div class="night">
+      <div class="k" style="color:#9aa0c8">B · Night sky</div>
+      <div class="deva" style="font-size:46px;color:#e3b04b;margin-top:10px;line-height:1">बोध</div>
+      <h1 class="serif" style="font-weight:600;font-size:34px;line-height:1.1;margin:6px 0 10px">Memory that sleeps,<br>learns, forgets.</h1>
+      <p style="margin:0 0 14px;color:#b9b6c9">Memory for AI agents, designed from the Yogic model of the mind.</p>
+      <span class="btn" style="background:#e3b04b;color:#121530">Request early access</span><span class="btn" style="border:1px solid #e3b04b;color:#e3b04b">Read the design</span>
+      <p style="font-size:12px;color:#9aa0c8;margin:14px 0 0">Deep indigo, gold lines, diagrams glowing like a star chart. Feels like a developer tool. Closer to Mem0 / Supermemory — more familiar, less distinctive.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

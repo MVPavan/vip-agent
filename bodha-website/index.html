@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bodha — memory that sleeps, learns, forgets</title>
+<meta name="description" content="Bodha (बोध) is a memory system for AI agents, designed from Patañjali's Yoga Sūtras and the Sāṅkhya model of mind.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf7f1; --paper-2:#f3ede2; --ink:#1c1915; --ink-2:#4a4237; --ink-3:#8a7f70;
+  --rule:#e4dccd; --saffron:#c4561a; --saffron-soft:#f6e6d8;
+  --indigo:#2e3a75; --indigo-soft:#e6e9f4; --sage:#4d7a52; --sage-soft:#e5efe4;
+  --amber:#b07a1e; --slate:#6b7280;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  --deva:"Tiro Devanagari Sanskrit",serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --max:1120px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+.site{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;border-radius:var(--radius,0);overflow:hidden}
+a{color:inherit}
+.container{max-width:var(--max);margin:0 auto;padding:0 28px}
+.deva{font-family:var(--deva)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.label b{color:var(--saffron);font-weight:500}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.12;margin:14px 0 18px}
+p{margin:0 0 14px}
+.lede{font-size:18px;color:var(--ink-2);max-width:640px}
+section{padding:96px 0;border-top:1px solid var(--rule)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:500;font-size:14.5px;text-decoration:none;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-line{border:1px solid var(--ink);color:var(--ink)}
+.chip{display:inline-block;white-space:nowrap;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid currentColor}
+.chip.live{color:var(--sage)} .chip.dev{color:var(--amber)} .chip.plan{color:var(--slate)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:5;background:rgba(250,247,241,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.brand .deva{font-size:26px;color:var(--saffron);line-height:1}
+.brand span:last-child{font-family:var(--serif);font-size:19px}
+.navlinks{display:flex;gap:26px;font-size:14px;color:var(--ink-2)}
+.navlinks a{text-decoration:none}
+.navlinks a:hover{color:var(--saffron)}
+@media (max-width:860px){.navlinks{display:none}}
+
+/* hero */
+.hero{padding:88px 0 96px;border-top:none;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(44px,7vw,84px);line-height:1.02;font-weight:300;margin:22px 0 26px}
+.hero h1 em{font-style:italic;color:var(--saffron)}
+.hero .lede{margin-bottom:30px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.mandala{width:100%;max-width:440px;margin-left:auto;display:block}
+.mandala .spin{transform-origin:220px 220px;animation:spin 140s linear infinite}
+.mandala .spin2{transform-origin:220px 220px;animation:spin 200s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.mandala{margin:0 auto;max-width:320px}}
+
+/* sutra epigraph */
+.sutra{text-align:center;padding:110px 0}
+.sutra .deva{font-size:clamp(30px,5vw,52px);color:var(--ink);line-height:1.3}
+.sutra .iast{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-2);margin:14px 0 6px}
+.sutra .tr{font-size:17px;color:var(--ink-2)}
+.sutra .src{margin-top:18px}
+.sutra .turn{max-width:640px;margin:56px auto 0;font-family:var(--serif);font-size:clamp(20px,2.6vw,26px);line-height:1.45;font-weight:300}
+.sutra .turn b{font-weight:400;color:var(--saffron)}
+
+/* problem */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:24px}}
+.problem-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--rule)}
+.problem-list li{padding:18px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:44px 1fr;gap:8px}
+.problem-list .n{font-family:var(--mono);font-size:12px;color:var(--saffron);padding-top:4px}
+
+/* figure */
+figure{margin:40px 0 0;background:#fff;border:1px solid var(--rule);border-radius:18px;padding:32px}
+figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.quote{border-left:2px solid var(--saffron);padding:4px 0 4px 22px;margin:40px 0 0;font-family:var(--serif);font-size:21px;font-weight:300;line-height:1.5;max-width:760px}
+.quote cite{display:block;margin-top:10px;font-family:var(--mono);font-size:11.5px;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.lenses{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.lens{border:1px solid var(--rule);border-radius:14px;padding:22px;background:var(--paper)}
+.lens h3{font-size:20px;margin:8px 0 8px}
+.lens p{font-size:14.5px;color:var(--ink-2);margin:0}
+.converge{display:flex;justify-content:center;margin:18px 0}
+.rule-box{background:var(--ink);color:var(--paper);border-radius:14px;padding:26px;text-align:center}
+.rule-box .big{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:300}
+.rule-box .small{color:#e3b48f;font-size:14px;margin-top:4px}
+@media (max-width:760px){.lenses{grid-template-columns:1fr}}
+
+/* mind diagram */
+.mind{display:grid;grid-template-columns:1.8fr 1fr;gap:28px;align-items:start}
+@media (max-width:960px){.mind{grid-template-columns:1fr}}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tab{font-family:var(--sans);font-size:13.5px;padding:8px 14px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);cursor:pointer;color:var(--ink-2)}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+#mindsvg{width:100%;height:auto;display:block}
+#mindsvg .node rect{fill:var(--paper);stroke:var(--rule);stroke-width:1.2;transition:all .25s ease}
+#mindsvg .node{cursor:pointer}
+#mindsvg .node:hover rect,#mindsvg .node.sel rect{stroke:var(--ink);stroke-width:1.6}
+#mindsvg .node .dv{font-family:var(--deva);font-size:20px}
+#mindsvg .node .nm{font-family:var(--sans);font-size:14.5px;font-weight:600;fill:var(--ink)}
+#mindsvg .node .gl{font-family:var(--sans);font-size:12.5px;fill:var(--ink-3)}
+#mindsvg .edge{fill:none;stroke:#cbbfa9;stroke-width:1.4;transition:all .25s ease}
+#mindsvg.f-write .edge.write{stroke:var(--saffron);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1s linear infinite}
+#mindsvg.f-recall .edge.recall{stroke:var(--indigo);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1s linear infinite}
+#mindsvg.f-sleep .edge.sleep{stroke:var(--sage);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1.4s linear infinite}
+#mindsvg.f-all .edge.write{stroke:#e2a77f}#mindsvg.f-all .edge.recall{stroke:#9aa3cc}#mindsvg.f-all .edge.sleep{stroke:#9fbf9f}
+#mindsvg.dim .node:not(.on) {opacity:.32}
+#mindsvg .node.on rect{stroke-width:1.8}
+#mindsvg.f-write .node.on rect{stroke:var(--saffron);fill:var(--saffron-soft)}
+#mindsvg.f-recall .node.on rect{stroke:var(--indigo);fill:var(--indigo-soft)}
+#mindsvg.f-sleep .node.on rect{stroke:var(--sage);fill:var(--sage-soft)}
+#mindsvg .node.step rect{stroke-width:3}
+.swipe{display:none}
+@media (max-width:640px){figure{padding:18px}.dscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px}#mindsvg{min-width:660px}.swipe{display:block;margin-top:8px}.panel{position:static}}
+@keyframes flow{to{stroke-dashoffset:-24}}
+.panel{border:1px solid var(--rule);border-radius:16px;padding:24px;background:var(--paper);position:sticky;top:84px}
+.panel .pdv{font-family:var(--deva);font-size:44px;line-height:1.1;color:var(--saffron)}
+.panel h3{font-size:26px;margin:6px 0 2px}
+.panel .iast{font-family:var(--serif);font-style:italic;color:var(--ink-2);margin-bottom:14px}
+.panel .meaning{font-size:14.5px;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:14px}
+.panel .role{font-size:15px;margin-top:6px}
+.panel .src{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;margin-top:6px}
+.steps{list-style:none;margin:22px 0 0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:8px;padding:9px 0;border-top:1px solid var(--rule);font-size:14.5px;color:var(--ink-2);transition:color .2s}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding-top:3px}
+.steps li.cur{color:var(--ink)}
+.steps li.cur::before{color:var(--saffron)}
+.play{margin-top:14px;font-size:13.5px;background:none;border:1px solid var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;font-family:var(--sans)}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;font-size:13px;color:var(--ink-2)}
+.legend i{display:inline-block;width:22px;height:0;border-top:2px dashed;vertical-align:4px;margin-right:6px}
+
+/* lifecycle */
+.life{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:40px;position:relative}
+.life::before{content:"";position:absolute;left:4%;right:4%;top:22px;border-top:1px solid var(--rule)}
+.stage{position:relative;padding:0 10px;text-align:left}
+.stage .dotc{width:44px;height:44px;border-radius:50%;background:var(--paper);border:1px solid var(--ink);display:grid;place-items:center;font-family:var(--mono);font-size:12px;position:relative;z-index:1}
+.stage.sleepy .dotc{border-color:var(--sage);color:var(--sage)}
+.stage h3{font-size:19px;margin:16px 0 6px}
+.stage p{font-size:13.5px;color:var(--ink-2);margin:0 0 10px}
+.cycle-note{margin-top:28px;font-family:var(--serif);font-style:italic;color:var(--sage);font-size:17px}
+@media (max-width:960px){.life{grid-template-columns:repeat(2,1fr);row-gap:28px}.life::before{display:none}}
+
+/* sutras / principles */
+.sutras{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule);margin-top:40px}
+.s{padding:30px 26px 30px 0;border-bottom:1px solid var(--rule)}
+.s:not(:nth-child(3n)){border-right:1px solid var(--rule)}
+.s:not(:nth-child(3n+1)){padding-left:26px}
+.s .num{font-family:var(--mono);font-size:12px;color:var(--saffron)}
+.s h3{font-size:22px;line-height:1.25;margin:10px 0 10px}
+.s p{font-size:14.5px;color:var(--ink-2)}
+@media (max-width:860px){.sutras{grid-template-columns:1fr}.s{border-right:none!important;padding-left:0!important}}
+
+/* status */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0 36px}
+.stat{border:1px solid var(--rule);border-radius:16px;padding:24px;background:#fff}
+.stat .v{font-family:var(--serif);font-weight:300;font-size:52px;line-height:1}
+.stat .v small{font-size:22px}
+.stat .k{font-size:14px;color:var(--ink-2);margin-top:10px}
+.stat .f{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:8px}
+@media (max-width:760px){.stats{grid-template-columns:1fr}}
+table.status{width:100%;border-collapse:collapse;font-size:15px}
+table.status td{padding:14px 8px;border-top:1px solid var(--rule);vertical-align:top}
+table.status td:last-child{text-align:right}
+table.status tr:last-child td{border-bottom:1px solid var(--rule)}
+.status .sub{display:block;font-size:13px;color:var(--ink-3)}
+.fine{font-size:13px;color:var(--ink-3);margin-top:18px}
+
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.note{border:1px solid var(--rule);border-radius:16px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:10px;min-height:200px;transition:border-color .2s}
+.note:hover{border-color:var(--ink)}
+.note h3{font-size:21px;line-height:1.25}
+.note p{font-size:14px;color:var(--ink-2);margin:0;flex:1}
+@media (max-width:860px){.notes{grid-template-columns:1fr}}
+
+/* founder / cta */
+.cta{background:var(--ink);color:var(--paper);border-radius:22px;padding:56px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:8px}
+.cta h2{color:var(--paper)}
+.cta p{color:#cfc6b8}
+.cta .btn-ink{background:var(--paper);color:var(--ink)}
+.cta .btn-line{border-color:#cfc6b8;color:var(--paper)}
+.founder{border-left:1px solid #4a4237;padding-left:32px}
+.founder .who{font-family:var(--serif);font-size:24px}
+.founder a{color:#e3b48f}
+@media (max-width:860px){.cta{grid-template-columns:1fr;padding:32px}.founder{border-left:none;padding-left:0;border-top:1px solid #4a4237;padding-top:24px}}
+footer{padding:48px 0 56px;color:var(--ink-3);font-size:13.5px}
+footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.mandala .spin,.mandala .spin2{animation:none}#mindsvg .edge{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="site">
+
+<nav>
+  <div class="container">
+    <a class="brand" href="#top"><span class="deva">बोध</span><span>Bodha</span></a>
+    <div class="navlinks">
+      <a href="#insight">Insight</a><a href="#mind">The mind</a><a href="#life">Lifecycle</a><a href="#sutras">Sūtras</a><a href="#status">Status</a><a href="#notes">Notes</a>
+    </div>
+    <a class="btn btn-ink" style="padding:9px 16px;font-size:13.5px" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Early access</a>
+  </div>
+</nav>
+
+<!-- 01 HERO -->
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <div class="label"><b>बोध</b> &nbsp;·&nbsp; Bodha — understanding</div>
+      <h1>Memory that <em>sleeps</em>, learns, forgets.</h1>
+      <p class="lede">Bodha is a memory system for AI agents, designed from Patañjali's Yoga Sūtras and the Sāṅkhya model of mind — so agents remember what matters, correct what has changed, and let go of what no longer holds.</p>
+      <div class="actions">
+        <a class="btn btn-ink" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Request early access →</a>
+        <a class="btn btn-line" href="#mind">Explore the mind</a>
+      </div>
+    </div>
+    <svg class="mandala" viewBox="0 0 440 440" aria-hidden="true">
+      <defs>
+        <path id="r5" d="M220,220 m-196,0 a196,196 0 1,1 392,0 a196,196 0 1,1 -392,0"/>
+        <path id="r4" d="M220,220 m-156,0 a156,156 0 1,1 312,0 a156,156 0 1,1 -312,0"/>
+        <path id="r3" d="M220,220 m-116,0 a116,116 0 1,1 232,0 a116,116 0 1,1 -232,0"/>
+        <path id="r2" d="M220,220 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/>
+      </defs>
+      <g fill="none" stroke="#e4dccd">
+        <circle cx="220" cy="220" r="210"/><circle cx="220" cy="220" r="170"/><circle cx="220" cy="220" r="130"/><circle cx="220" cy="220" r="90"/><circle cx="220" cy="220" r="50" stroke="#c4561a" stroke-opacity=".5"/>
+      </g>
+      <g class="spin" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" fill="#8a7f70">
+        <text><textPath href="#r5">INDRIYA · THE SENSES · INDRIYA · THE SENSES · INDRIYA · THE SENSES ·</textPath></text>
+        <text><textPath href="#r3">BUDDHI · INTELLECT · BUDDHI · INTELLECT ·</textPath></text>
+      </g>
+      <g class="spin2" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" fill="#8a7f70">
+        <text><textPath href="#r4">MANAS · THE WORKING MIND · MANAS · THE WORKING MIND ·</textPath></text>
+        <text><textPath href="#r2">AHAṄKĀRA · AHAṄKĀRA ·</textPath></text>
+      </g>
+      <text x="220" y="232" text-anchor="middle" font-family="Tiro Devanagari Sanskrit, serif" font-size="34" fill="#c4561a">चित्त</text>
+      <circle cx="220" cy="10" r="3.5" fill="#c4561a"/>
+    </svg>
+  </div>
+</header>
+
+<!-- 02 SUTRA + PROBLEM -->
+<section class="sutra reveal">
+  <div class="container">
+    <div class="deva">योगश्चित्तवृत्तिनिरोधः</div>
+    <div class="iast">yogaś citta-vṛtti-nirodhaḥ</div>
+    <div class="tr">Yoga is the stilling of the movements of the mind.</div>
+    <div class="src label">Patañjali · Yoga Sūtra 1.2</div>
+    <p class="turn">An agent's mind is all movement — every message, every tool call, every passing claim. <b>Bodha brings the same discipline to machine memory:</b> not everything that passes through the mind should become a memory.</p>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container split">
+    <div class="reveal">
+      <div class="label"><b>01</b> &nbsp;The problem</div>
+      <h2>Agents either forget everything, or remember everything.</h2>
+      <p class="lede">Neither is memory. Memory is discernment: what to keep, what has changed, what to let go.</p>
+    </div>
+    <ul class="problem-list reveal">
+      <li><span class="n">i.</span><span><b>Amnesia.</b> Most agents start every session from zero. Users repeat themselves; the agent never learns them.</span></li>
+      <li><span class="n">ii.</span><span><b>Hoarding.</b> Memory layers that store everything slowly fill with stale and contradictory facts — and recall them with equal confidence.</span></li>
+      <li><span class="n">iii.</span><span><b>No evidence.</b> When an agent "remembers" something, there is rarely a way to see where it came from, or to correct it.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 03 INSIGHT -->
+<section id="insight">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>02</b> &nbsp;The insight</div>
+      <h2>Three traditions, one rule.</h2>
+      <p class="lede">Sāṅkhya-Yoga maps the mind as a set of faculties with distinct authority. Read as a systems architecture, it says something modern neuroscience and good engineering both agree with.</p>
+    </div>
+    <figure class="reveal">
+      <figcaption><span class="label">Fig. 1 — Where the decision to remember lives</span></figcaption>
+      <div class="lenses">
+        <div class="lens"><div class="label" style="color:var(--saffron)">Sāṅkhya-Yoga</div><h3>Dhṛti serves Buddhi</h3><p>Holding firm to what is true is an act of the discerning intellect, not of the mind-field that stores impressions.</p></div>
+        <div class="lens"><div class="label" style="color:var(--indigo)">Neuroscience</div><h3>Hippocampus gates</h3><p>The hippocampus decides what is consolidated; the neocortex holds it. Selection and storage are different organs.</p></div>
+        <div class="lens"><div class="label" style="color:var(--sage)">Engineering</div><h3>Authority in the app</h3><p>Write decisions live in the reasoning layer. The database commits what it is given — and keeps every version.</p></div>
+      </div>
+      <div class="converge"><svg width="200" height="40" viewBox="0 0 200 40" aria-hidden="true"><path d="M20,0 C20,26 100,18 100,38 M100,0 L100,38 M180,0 C180,26 100,18 100,38" fill="none" stroke="#cbbfa9"/></svg></div>
+      <div class="rule-box"><div class="big">Reasoning decides what to keep. Storage only holds.</div><div class="small">The founding rule of Bodha's architecture.</div></div>
+    </figure>
+    <blockquote class="quote reveal">“Dhṛti — the write gate — is a function of Buddhi, reasoning, not of Citta, storage. Citta is the field of impressions; its nature is associative and relational, not transactional.”<cite>Bodha design notes, v1.1</cite></blockquote>
+  </div>
+</section>
+
+<!-- 04 THE MIND -->
+<section id="mind">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>03</b> &nbsp;The mind-stack · अन्तःकरण</div>
+      <h2>The inner instrument, rebuilt for agents.</h2>
+      <p class="lede">Sāṅkhya names the <i>antaḥkaraṇa</i> — the inner instrument — and Patañjali describes the <i>citta</i> in which impressions settle into tendencies. Each faculty became a component with one job and one boundary. Select a faculty, or follow a flow.</p>
+    </div>
+    <figure class="reveal">
+      <figcaption><span class="label">Fig. 2 — Bodha's mind-stack</span><span class="label">Interactive</span></figcaption>
+      <div class="tabs" role="group" aria-label="Flows">
+        <button class="tab" data-flow="all" aria-pressed="true">Whole mind</button>
+        <button class="tab" data-flow="write" aria-pressed="false"><span class="dot" style="background:var(--saffron)"></span>Remembering</button>
+        <button class="tab" data-flow="recall" aria-pressed="false"><span class="dot" style="background:var(--indigo)"></span>Recalling</button>
+        <button class="tab" data-flow="sleep" aria-pressed="false"><span class="dot" style="background:var(--sage)"></span>Sleeping</button>
+      </div>
+      <div class="mind">
+        <div>
+          <div class="dscroll"><svg id="mindsvg" class="f-all" viewBox="0 0 760 580" role="img" aria-label="Diagram of Bodha's faculties and how memory flows between them">
+            <defs>
+              <marker id="m-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b5a88f"/></marker>
+            </defs>
+            <!-- buddhi container -->
+            <g class="node" data-id="buddhi">
+              <rect x="200" y="214" width="360" height="160" rx="18"/>
+              <text class="dv" x="222" y="246" fill="#c4561a">बुद्धि</text>
+              <text class="nm" x="276" y="244">Buddhi</text>
+              <text class="gl" x="346" y="244">discerning intellect</text>
+            </g>
+            <!-- edges -->
+            <path class="edge write recall" id="e-ind-man" d="M380,78 L380,112" marker-end="url(#m-a)"/>
+            <path class="edge ctx" id="e-ahk-man" d="M202,144 L276,144" marker-end="url(#m-a)"/>
+            <path class="edge sleep" id="e-vas-man" d="M202,222 C238,222 246,186 276,178" marker-end="url(#m-a)"/>
+            <path class="edge write recall" id="e-man-bud" d="M380,176 L380,212" marker-end="url(#m-a)"/>
+            <path class="edge recall" id="e-dhi-smr" d="M262,358 C246,394 214,404 186,414" marker-end="url(#m-a)"/>
+            <path class="edge recall" id="e-smr-cit" d="M110,478 C110,520 170,526 236,522" marker-end="url(#m-a)"/>
+            <path class="edge recall" id="e-smr-bud" d="M70,412 C70,330 130,300 198,300" marker-end="url(#m-a)"/>
+            <path class="edge write" id="e-dhr-cit" d="M480,358 L480,484" marker-end="url(#m-a)"/>
+            <path class="edge sleep" id="e-cit-dha" d="M524,532 C600,540 666,530 666,500" marker-end="url(#m-a)"/>
+            <path class="edge sleep" id="e-dha-cit" d="M590,456 C556,456 540,480 526,494" marker-end="url(#m-a)"/>
+            <path class="edge sleep" id="e-dha-vas" d="M712,420 L712,196 L216,196 L204,206" marker-end="url(#m-a)"/>
+            <!-- nodes -->
+            <g class="node" data-id="indriya"><rect x="270" y="16" width="220" height="60" rx="14"/><text class="dv" x="290" y="52" fill="#c4561a">इन्द्रिय</text><text class="nm" x="356" y="44">Indriyas</text><text class="gl" x="356" y="62">the senses</text></g>
+            <g class="node" data-id="ahankara"><rect x="20" y="114" width="180" height="60" rx="14"/><text class="dv" x="36" y="150" fill="#c4561a">अहं</text><text class="nm" x="80" y="142">Ahaṅkāra</text><text class="gl" x="80" y="160">the I-maker</text></g>
+            <g class="node" data-id="vasana"><rect x="20" y="192" width="180" height="60" rx="14"/><text class="dv" x="36" y="228" fill="#4d7a52">वास</text><text class="nm" x="80" y="220">Vāsanā</text><text class="gl" x="80" y="238">learned tendencies</text></g>
+            <g class="node" data-id="manas"><rect x="278" y="114" width="204" height="60" rx="14"/><text class="dv" x="296" y="150" fill="#c4561a">मनस्</text><text class="nm" x="356" y="142">Manas</text><text class="gl" x="356" y="160">the working mind</text></g>
+            <g class="node" data-id="dhi"><rect x="222" y="268" width="150" height="88" rx="14"/><text class="dv" x="240" y="300" fill="#2e3a75">धी</text><text class="nm" x="268" y="298">Dhī</text><text class="gl" x="240" y="322">plans each recall</text><text class="gl" x="240" y="340">never writes</text></g>
+            <g class="node" data-id="dhrti"><rect x="390" y="268" width="150" height="88" rx="14"/><text class="dv" x="408" y="300" fill="#c4561a">धृति</text><text class="nm" x="450" y="298">Dhṛti</text><text class="gl" x="408" y="322">the write gate</text><text class="gl" x="408" y="340">evidence or nothing</text></g>
+            <g class="node" data-id="smrti"><rect x="20" y="414" width="180" height="64" rx="14"/><text class="dv" x="36" y="452" fill="#2e3a75">स्मृति</text><text class="nm" x="92" y="442">Smṛti</text><text class="gl" x="92" y="460">recollection</text></g>
+            <g class="node" data-id="citta"><rect x="236" y="486" width="288" height="76" rx="18" style="fill:#1c1915;stroke:#1c1915"/><text class="dv" x="258" y="530" fill="#e3b48f" style="font-size:24px">चित्त</text><text class="nm" x="318" y="518" style="fill:#faf7f1">Citta</text><text class="gl" x="318" y="537" style="fill:#cfc6b8">the field of impressions</text><text class="gl" x="318" y="553" style="fill:#cfc6b8">memories + their history</text></g>
+            <g class="node" data-id="dharana"><rect x="590" y="420" width="150" height="82" rx="14"/><text class="dv" x="608" y="452" fill="#4d7a52">धारणा</text><text class="nm" x="608" y="474">Dhāraṇā</text><text class="gl" x="608" y="492">sleep · upkeep</text></g>
+            <text x="490" y="430" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">WRITE</text>
+            <text x="22" y="398" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">RESULTS</text>
+          </svg></div><div class="swipe label">Swipe to explore →</div>
+          <div class="legend"><span><i style="color:var(--saffron)"></i>remembering</span><span><i style="color:var(--indigo)"></i>recalling</span><span><i style="color:var(--sage)"></i>sleeping</span></div>
+        </div>
+        <aside class="panel" aria-live="polite">
+          <div class="pdv" id="p-dv">चित्त</div>
+          <h3 id="p-nm">Citta</h3>
+          <div class="iast" id="p-gl">the field of impressions</div>
+          <div class="meaning" id="p-mean"></div>
+          <div class="src" id="p-src"></div>
+          <p class="role" id="p-role"></p>
+          <span class="chip live" id="p-status">Live</span>
+          <ol class="steps" id="steps" hidden></ol>
+          <button class="play" id="play" hidden>▶ Play this flow</button>
+        </aside>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 05 LIFECYCLE -->
+<section id="life">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>04</b> &nbsp;The life of a memory</div>
+      <h2>From a passing remark to a lasting tendency.</h2>
+      <p class="lede">In the Yoga Sūtras, experience leaves <i>saṁskāras</i> — impressions — and repeated impressions become <i>vāsanās</i>, tendencies. Bodha follows the same arc.</p>
+    </div>
+    <div class="life reveal">
+      <div class="stage"><div class="dotc">01</div><h3>Perceive</h3><p>Facts are extracted from each conversation turn.</p><span class="chip live">Live</span></div>
+      <div class="stage"><div class="dotc">02</div><h3>Ground</h3><p>Each carries the exact words it came from.</p><span class="chip live">Live</span></div>
+      <div class="stage"><div class="dotc">03</div><h3>Judge</h3><p>New, an update, or a contradiction?</p><span class="chip dev">In development</span></div>
+      <div class="stage"><div class="dotc">04</div><h3>Keep</h3><p>Stored with history. Corrections never erase.</p><span class="chip live">Live</span></div>
+      <div class="stage"><div class="dotc">05</div><h3>Recall</h3><p>The question is classified, searched four ways, ranked.</p><span class="chip live">Live</span></div>
+      <div class="stage sleepy"><div class="dotc">06</div><h3>Sleep</h3><p>Consolidate, repair conflicts, let go.</p><span class="chip dev">In development</span></div>
+      <div class="stage sleepy"><div class="dotc">07</div><h3>Tendency</h3><p>Repeated impressions become habits.</p><span class="chip dev">In development</span></div>
+    </div>
+    <p class="cycle-note reveal">…and tendencies shape how the next turn is perceived.</p>
+  </div>
+</section>
+
+<!-- 06 SUTRAS -->
+<section id="sutras">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>05</b> &nbsp;Sūtras · सूत्र</div>
+      <h2>Six threads the system is strung on.</h2>
+      <p class="lede">A sūtra is a thread — a short rule meant to be held. These are Bodha's, enforced as invariants in code wherever they are live.</p>
+    </div>
+    <div class="sutras reveal">
+      <div class="s"><div class="num">I.</div><h3>Nothing is remembered without evidence.</h3><p>Every memory carries the verbatim words it came from, and the turn they were spoken in.</p><span class="chip live">Live</span></div>
+      <div class="s"><div class="num">II.</div><h3>Reasoning decides; storage holds.</h3><p>No model runs inside the database commit. The store never chooses what to keep.</p><span class="chip live">Live</span></div>
+      <div class="s"><div class="num">III.</div><h3>Correction is not deletion.</h3><p>When something changes, the old memory is retired with its history intact, and every correction is logged.</p><span class="chip live">Live</span></div>
+      <div class="s"><div class="num">IV.</div><h3>One mind's memory is never another's.</h3><p>Memories are bound to the person they are about, even in a shared pool.</p><span class="chip live">Live</span></div>
+      <div class="s"><div class="num">V.</div><h3>The self is given; habits are earned.</h3><p>Ahaṅkāra — the agent's identity — is read-only. Vāsanā — its tendencies — is learned, and capped in influence.</p><span class="chip dev">In development</span></div>
+      <div class="s"><div class="num">VI.</div><h3>Rest is part of remembering.</h3><p>Dhāraṇā works while the agent is idle: consolidating, reconciling, and letting go.</p><span class="chip dev">In development</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 STATUS -->
+<section id="status">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>06</b> &nbsp;Where we are</div>
+      <h2>A working core, in private development.</h2>
+      <p class="lede">The full pipeline runs end to end — perceive, ground, keep, recall — with more than 2,400 automated tests. Here is what is live, and what is next.</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="v">0</div><div class="k">memories leaked between people across 1,320 cross-person checks in a shared two-person pool.</div><div class="f">Internal evaluation</div></div>
+      <div class="stat"><div class="v">97.6<small>%</small></div><div class="k">of target memories retrieved in the top ten, on HaluMem question probes.</div><div class="f">Internal evaluation · 112 probes</div></div>
+      <div class="stat"><div class="v">100<small>%</small></div><div class="k">of stored memories carry the source quote they were drawn from.</div><div class="f">Enforced by schema</div></div>
+    </div>
+    <table class="status reveal">
+      <tr><td>Evidence-carrying memories<span class="sub">Every memory holds its verbatim source quote</span></td><td><span class="chip live">Live</span></td></tr>
+      <tr><td>Inspect · correct · forget, with an audit trail<span class="sub">Forgetting retires a memory; full erasure is planned</span></td><td><span class="chip live">Live</span></td></tr>
+      <tr><td>Person isolation<span class="sub">Memories stay bound to whom they are about</span></td><td><span class="chip live">Live</span></td></tr>
+      <tr><td>Question-aware recall<span class="sub">Classified plans; keyword, semantic, graph and time search</span></td><td><span class="chip live">Live</span></td></tr>
+      <tr><td>Tracking facts that change over time<span class="sub">History is kept; detecting updates is being strengthened</span></td><td><span class="chip dev">In development</span></td></tr>
+      <tr><td>Dhāraṇā sleep cycles<span class="sub">Consolidation and contradiction repair</span></td><td><span class="chip dev">In development</span></td></tr>
+      <tr><td>Vāsanā<span class="sub">Learned behavioural tendencies</span></td><td><span class="chip dev">In development</span></td></tr>
+      <tr><td>Document memory · MCP integration</td><td><span class="chip plan">Planned</span></td></tr>
+    </table>
+    <p class="fine">Figures come from Bodha's own evaluation harness on small scenario sets. They are not comparable to published leaderboards; independent benchmarks will follow.</p>
+  </div>
+</section>
+
+<!-- 08 NOTES -->
+<section id="notes">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>07</b> &nbsp;Design notes</div>
+      <h2>Reading Patañjali as a systems architect.</h2>
+      <p class="lede">Essays on the decisions behind Bodha — each faculty, each boundary, and what it took to make them run.</p>
+    </div>
+    <div class="notes reveal">
+      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Why the write gate belongs to Buddhi</h3><p>The one architectural decision everything else follows from.</p></a>
+      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Evidence-carrying memory</h3><p>Why every memory keeps the words it came from — and what that buys you.</p></a>
+      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Correction is not deletion</h3><p>Keeping history when facts change, and why overwriting is the wrong default.</p></a>
+      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Dhāraṇā: why memory needs sleep</h3><p>Consolidation, contradiction repair and letting go, done while the agent rests.</p></a>
+      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Ahaṅkāra and Vāsanā</h3><p>The designed self and the learned self — and why only one may change.</p></a>
+      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Smṛti, without letting slip</h3><p>Yoga Sūtra 1.11 on memory, and how Bodha plans a recall.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- 09 FOUNDER / ACCESS -->
+<section id="access" style="border-top:none;padding-top:24px">
+  <div class="container">
+    <div class="cta reveal">
+      <div>
+        <div class="label" style="color:#a99f90"><b>08</b> &nbsp;Early access</div>
+        <h2>Give your agents a mind that remembers well.</h2>
+        <p>Bodha is in private development. If you are building assistants, domain agents or multi-agent systems and want to try it, write to us.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+          <a class="btn btn-ink" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Request early access →</a>
+        </div>
+      </div>
+      <div class="founder">
+        <div class="label" style="color:#a99f90">Built by</div>
+        <div class="who">[Your name]</div>
+        <p style="margin:6px 0 14px">[One line about you — background, and why agent memory.]</p>
+        <p style="margin:0"><a href="mailto:pavan.mv@bodha-mem.com">pavan.mv@bodha-mem.com</a> &nbsp;·&nbsp; <a href="#">LinkedIn</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container"><span><span class="deva" style="color:var(--saffron)">बोध</span> &nbsp;Bodha — understanding</span><span>© 2026 Bodha · bodha-mem.com</span></div>
+</footer>
+</div>
+
+<script>
+const N={
+  indriya:{dv:"इन्द्रिय",nm:"Indriyas",gl:"indriya — the senses",mean:"In Sāṅkhya, the faculties of perception and action through which the world reaches the mind.",src:"Sāṅkhya",role:"Every input — user messages, tool results, documents. Bodha's edge with the world.",st:"live"},
+  ahankara:{dv:"अहंकार",nm:"Ahaṅkāra",gl:"ahaṅkāra — the I-maker",mean:"In Sāṅkhya, the principle of individuation: the sense of 'I'.",src:"Sāṅkhya",role:"The agent's designed identity, placed first in every context. Read-only — the system can never rewrite who the agent is.",st:"live"},
+  vasana:{dv:"वासना",nm:"Vāsanā",gl:"vāsanā — latent tendency",mean:"The tendencies left behind by repeated impressions.",src:"Yoga Sūtra 4.8",role:"Behavioural tendencies learned from experience — earned, never assumed, and capped in how much they may influence a turn.",st:"dev"},
+  manas:{dv:"मनस्",nm:"Manas",gl:"manas — the working mind",mean:"The mind that gathers and arranges what the senses bring, before judgment.",src:"Sāṅkhya",role:"Assembles each turn's context in layers — identity, tendencies, history, the current message. Compresses; never reasons.",st:"live"},
+  buddhi:{dv:"बुद्धि",nm:"Buddhi",gl:"buddhi — the discerning intellect",mean:"In Sāṅkhya, the first and subtlest evolute of nature, and the seat of judgment.",src:"Sāṅkhya",role:"The reasoning loop. Decides when to recall and what deserves to be remembered. Dhī and Dhṛti act on its behalf.",st:"live"},
+  dhi:{dv:"धी",nm:"Dhī",gl:"dhī — insight, thought",mean:"Insight; the reflective power of the intellect.",src:"Vedic usage",role:"Classifies each question and builds a retrieval plan from templates — what to search, how, and in what order. It never writes.",st:"live"},
+  dhrti:{dv:"धृति",nm:"Dhṛti",gl:"dhṛti — steadfastness",mean:"Firmness; the resolve that holds to what is right.",src:"Bhagavad Gītā 18.33",role:"The write gate. Extracts candidate memories, requires the verbatim quote each came from, and judges whether it is new, an update, or a contradiction.",st:"live"},
+  smrti:{dv:"स्मृति",nm:"Smṛti",gl:"smṛti — memory, recollection",mean:"“Memory is not letting slip an object once experienced.”",src:"Yoga Sūtra 1.11",role:"Carries out Dhī's plan: keyword, semantic, graph and time-aware search, then ranks what it finds.",st:"live"},
+  citta:{dv:"चित्त",nm:"Citta",gl:"citta — the mind-field",mean:"The field in which impressions (saṁskāras) are held — the citta of Yoga Sūtra 1.2.",src:"Yoga Sūtra 1.2",role:"Durable memory with full history. It holds; it never decides. Corrections retire a memory rather than erase it.",st:"live"},
+  dharana:{dv:"धारणा",nm:"Dhāraṇā",gl:"dhāraṇā — holding, concentration",mean:"The sixth of Patañjali's eight limbs: binding the mind to one place.",src:"Yoga Sūtra 3.1",role:"Background 'sleep': consolidates related memories, repairs contradictions, and distils repeated experience into Vāsanā.",st:"dev"}
+};
+const FLOWS={
+  write:{nodes:["indriya","manas","buddhi","dhrti","citta"],steps:[
+    ["indriya","A turn arrives through the Indriyas."],["manas","Manas assembles the context."],["buddhi","Buddhi reasons and responds."],
+    ["dhrti","Dhṛti extracts candidate memories, each with its source quote."],["dhrti","Dhṛti judges: new, update, or contradiction."],["citta","Citta commits it — history kept, nothing overwritten."]]},
+  recall:{nodes:["buddhi","dhi","smrti","citta","manas","indriya"],steps:[
+    ["buddhi","Buddhi needs to remember something."],["dhi","Dhī classifies the question and plans the search."],["smrti","Smṛti searches Citta four ways."],
+    ["citta","Matching memories are drawn from Citta, with their history."],["smrti","Smṛti ranks them and returns the best."],["buddhi","Buddhi answers, grounded in what was recalled."]]},
+  sleep:{nodes:["citta","dharana","vasana","manas"],steps:[
+    ["citta","The agent goes quiet; Citta holds the day's impressions."],["dharana","Dhāraṇā reads across them."],["dharana","It consolidates and repairs contradictions."],
+    ["citta","Changes are written back — with history."],["vasana","Repeated patterns are distilled into Vāsanā."],["manas","Vāsanā shapes Manas on the next turn."]]}
+};
+const svg=document.getElementById('mindsvg');
+const $=id=>document.getElementById(id);
+let flow='all',timer=null;
+function show(id){
+  const n=N[id];if(!n)return;
+  $('p-dv').textContent=n.dv;$('p-nm').textContent=n.nm;$('p-gl').textContent=n.gl;
+  $('p-mean').textContent=n.mean;$('p-src').textContent=n.src;$('p-role').textContent=n.role;
+  const s=$('p-status');s.className='chip '+n.st;s.textContent=n.st==='live'?'Live':'In development';
+  svg.querySelectorAll('.node').forEach(g=>g.classList.toggle('sel',g.dataset.id===id));
+}
+function setFlow(f){
+  flow=f;stop();
+  svg.setAttribute('class','f-'+f+(f==='all'?'':' dim'));
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed',t.dataset.flow===f));
+  svg.querySelectorAll('.node').forEach(g=>g.classList.toggle('on',f!=='all'&&FLOWS[f].nodes.includes(g.dataset.id)));
+  const ol=$('steps');ol.innerHTML='';
+  if(f==='all'){ol.hidden=true;$('play').hidden=true;show('citta');return;}
+  FLOWS[f].steps.forEach(([id,t],i)=>{const li=document.createElement('li');li.textContent=t;li.onclick=()=>step(i);ol.appendChild(li)});
+  ol.hidden=false;$('play').hidden=false;step(0,true);
+}
+function step(i,quiet){
+  const st=FLOWS[flow].steps;const [id]=st[i];
+  [...$('steps').children].forEach((li,j)=>li.classList.toggle('cur',j===i));
+  svg.querySelectorAll('.node').forEach(g=>g.classList.toggle('step',g.dataset.id===id));
+  if(!quiet)show(id);else show(st[0][0]);
+}
+function stop(){if(timer){clearInterval(timer);timer=null;$('play').textContent='▶ Play this flow';}}
+$('play').onclick=()=>{
+  if(timer){stop();return;}
+  let i=0;step(0);$('play').textContent='❚❚ Pause';
+  timer=setInterval(()=>{i++;if(i>=FLOWS[flow].steps.length){stop();return;}step(i)},1700);
+};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>setFlow(t.dataset.flow));
+svg.querySelectorAll('.node').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();stop();show(g.dataset.id)}));
+setFlow('all');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
