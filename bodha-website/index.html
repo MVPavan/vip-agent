@@ -59,6 +59,8 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 .mandala{width:100%;max-width:440px;margin-left:auto;display:block}
 .mandala .spin{transform-origin:220px 220px;animation:spin 140s linear infinite}
 .mandala .spin2{transform-origin:220px 220px;animation:spin 200s linear infinite reverse}
+.mandala .spin3{transform-origin:220px 220px;animation:spin 60s linear infinite}
+@media (max-width:860px){.mandala .core{font-size:10.5px;letter-spacing:1.5px}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (max-width:860px){.hero-grid{grid-template-columns:1fr}.mandala{margin:0 auto;max-width:320px}}
 
@@ -195,7 +197,7 @@ footer{padding:48px 0 56px;color:var(--ink-3);font-size:13.5px}
 footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.mandala .spin,.mandala .spin2{animation:none}#mindsvg .edge{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.mandala .spin,.mandala .spin2,.mandala .spin3{animation:none}#mindsvg .edge{animation:none!important}}
 </style>
 </head>
 <body>
@@ -203,7 +205,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 
 <nav>
   <div class="container">
-    <a class="brand" href="#top"><span class="deva">बोध</span><span>Bodha</span></a>
+    <a class="brand" href="#top"><span>Bodha</span></a>
     <div class="navlinks">
       <a href="#insight">Insight</a><a href="#mind">The mind</a><a href="#life">Lifecycle</a><a href="#sutras">Sūtras</a><a href="#status">Status</a><a href="#notes">Notes</a>
     </div>
@@ -215,7 +217,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 <header class="hero" id="top">
   <div class="container hero-grid">
     <div>
-      <div class="label"><b>बोध</b> &nbsp;·&nbsp; Cognitive memory for AI agents</div>
+      <div class="label"><b>Bodha</b> &nbsp;·&nbsp; Cognitive memory for AI agents</div>
       <h1>Learn. <em>Consolidate.</em> Forget.</h1>
       <p class="lede">Bodha is a cognitive memory system for AI agents, inspired by Patañjali's Yoga Sūtras and the Sāṅkhya model of mind, so agents remember what matters, learn the patterns behind it, correct what has changed, and let go of what no longer holds.</p>
       <div class="actions">
@@ -229,6 +231,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <path id="r4" d="M220,220 m-156,0 a156,156 0 1,1 312,0 a156,156 0 1,1 -312,0"/>
         <path id="r3" d="M220,220 m-116,0 a116,116 0 1,1 232,0 a116,116 0 1,1 -232,0"/>
         <path id="r2" d="M220,220 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/>
+        <path id="r1" d="M220,220 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/>
       </defs>
       <g fill="none" stroke="#e4dccd">
         <circle cx="220" cy="220" r="210"/><circle cx="220" cy="220" r="170"/><circle cx="220" cy="220" r="130"/><circle cx="220" cy="220" r="90"/><circle cx="220" cy="220" r="50" stroke="#c4561a" stroke-opacity=".5"/>
@@ -243,9 +246,10 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <text><textPath href="#r4" startOffset="62%">MANAS · WORKING MIND</textPath></text>
         <text><textPath href="#r2" startOffset="50%">AHAṄKĀRA · IDENTITY</textPath></text>
       </g>
-      <text x="220" y="222" text-anchor="middle" font-family="Tiro Devanagari Sanskrit, serif" font-size="30" fill="#c4561a">चित्त</text>
-      <text x="220" y="240" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5" fill="#8a7f70">MEMORY</text>
-      <text x="220" y="251" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5" fill="#8a7f70">SUBSTRATE</text>
+      <g class="spin3" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="2" fill="#c4561a" fill-opacity=".8">
+        <text class="core"><textPath href="#r1">CITTA · MEMORY SUBSTRATE ·</textPath></text>
+      </g>
+      <text x="220" y="231" text-anchor="middle" font-family="Tiro Devanagari Sanskrit, serif" font-size="30" fill="#c4561a">चित्त</text>
       <circle cx="220" cy="10" r="3.5" fill="#c4561a"/>
     </svg>
   </div>
