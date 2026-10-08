@@ -171,13 +171,6 @@ table.status tr:last-child td{border-bottom:1px solid var(--rule)}
 .status .sub{display:block;font-size:13px;color:var(--ink-3)}
 .fine{font-size:13px;color:var(--ink-3);margin-top:18px}
 
-/* notes */
-.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-.note{border:1px solid var(--rule);border-radius:16px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:10px;min-height:200px;transition:border-color .2s}
-.note:hover{border-color:var(--ink)}
-.note h3{font-size:21px;line-height:1.25}
-.note p{font-size:14px;color:var(--ink-2);margin:0;flex:1}
-@media (max-width:860px){.notes{grid-template-columns:1fr}}
 
 /* founder / cta */
 .cta{background:var(--ink);color:var(--paper);border-radius:22px;padding:56px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:8px}
@@ -186,7 +179,9 @@ table.status tr:last-child td{border-bottom:1px solid var(--rule)}
 .cta .btn-ink{background:var(--paper);color:var(--ink)}
 .cta .btn-line{border-color:#cfc6b8;color:var(--paper)}
 .founder{border-left:1px solid #4a4237;padding-left:32px}
-.founder .who{font-family:var(--serif);font-size:24px}
+.founder .who{font-family:var(--serif);font-size:24px;display:flex;align-items:center;gap:16px}
+.founder .social{display:inline-flex;color:#c9bfb0;transition:color .2s}
+.founder .social:hover{color:#e3b48f}
 .founder a{color:#e3b48f}
 @media (max-width:860px){.cta{grid-template-columns:1fr;padding:32px}.founder{border-left:none;padding-left:0;border-top:1px solid #4a4237;padding-top:24px}}
 footer{padding:48px 0 56px;color:var(--ink-3);font-size:13.5px}
@@ -248,7 +243,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   <div class="container">
     <a class="brand" href="#top"><span>Bodha</span></a>
     <div class="navlinks">
-      <a href="#insight">Insight</a><a href="#mind">The mind</a><a href="#life">Lifecycle</a><a href="#status">Status</a><a href="#notes">Notes</a>
+      <a href="#insight">Insight</a><a href="#mind">Mind-stack</a><a href="#kinds">Memory</a><a href="#life">Lifecycle</a><a href="#status">Status</a>
     </div>
     <a class="btn btn-ink" style="padding:9px 16px;font-size:13.5px" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Early access</a>
   </div>
@@ -468,63 +463,37 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
     <div class="reveal">
       <div class="label"><b>06</b> &nbsp;Where we are</div>
       <h2>A working core, in private development.</h2>
-      <p class="lede">The full pipeline runs end to end — perceive, ground, keep, recall — with more than 2,400 automated tests. Here is what is live, and what is next.</p>
+      <p class="lede" style="max-width:none">Nearly there. Bodha remembers well; it is still learning to sleep on it.</p>
     </div>
     <div class="stats reveal">
-      <div class="stat"><div class="v">0</div><div class="k">memories leaked between people across 1,320 cross-person checks in a shared two-person pool.</div><div class="f">Internal evaluation</div></div>
+      <div class="stat"><div class="v">0</div><div class="k">memories leaked between people across 1,320 cross-person checks in a shared conversation pool.</div><div class="f">Internal evaluation</div></div>
       <div class="stat"><div class="v">97.6<small>%</small></div><div class="k">of target memories retrieved in the top ten, on HaluMem question probes.</div><div class="f">Internal evaluation · 112 probes</div></div>
-      <div class="stat"><div class="v">100<small>%</small></div><div class="k">of stored memories carry the source quote they were drawn from.</div><div class="f">Enforced by schema</div></div>
+      <div class="stat"><div class="v">100<small>%</small></div><div class="k">of stored memories carry their source evidence.</div><div class="f">Internal evaluation</div></div>
     </div>
     <table class="status reveal">
-      <tr><td>Evidence-carrying memories<span class="sub">Every memory holds its verbatim source quote</span></td><td><span class="chip live">Live</span></td></tr>
-      <tr><td>Inspect · correct · forget, with an audit trail<span class="sub">Forgetting retires a memory; full erasure is planned</span></td><td><span class="chip live">Live</span></td></tr>
-      <tr><td>Person isolation<span class="sub">Memories stay bound to whom they are about</span></td><td><span class="chip live">Live</span></td></tr>
-      <tr><td>Question-aware recall<span class="sub">Classified plans; keyword, semantic, graph and time search</span></td><td><span class="chip live">Live</span></td></tr>
-      <tr><td>Tracking facts that change over time<span class="sub">History is kept; detecting updates is being strengthened</span></td><td><span class="chip dev">In development</span></td></tr>
-      <tr><td>Dhāraṇā sleep cycles<span class="sub">Consolidation and contradiction repair</span></td><td><span class="chip dev">In development</span></td></tr>
-      <tr><td>Vāsanā<span class="sub">Learned behavioural tendencies</span></td><td><span class="chip dev">In development</span></td></tr>
-      <tr><td>Document memory · MCP integration</td><td><span class="chip plan">Planned</span></td></tr>
+      <tr><td>Dhāraṇā sleep cycles</td><td><span class="chip dev">In development</span></td></tr>
+      <tr><td>Vāsanā</td><td><span class="chip dev">In development</span></td></tr>
     </table>
-    <p class="fine">Figures come from Bodha's own evaluation harness on small scenario sets. They are not comparable to published leaderboards; independent benchmarks will follow.</p>
+    <p class="fine">Figures come from Bodha's internal evaluation. Results on public benchmarks will follow.</p>
   </div>
 </section>
 
-<!-- 08 NOTES -->
-<section id="notes">
-  <div class="container">
-    <div class="reveal">
-      <div class="label"><b>07</b> &nbsp;Design notes</div>
-      <h2>Reading Patañjali as a systems architect.</h2>
-      <p class="lede">Essays on the decisions behind Bodha — each faculty, each boundary, and what it took to make them run.</p>
-    </div>
-    <div class="notes reveal">
-      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Why the write gate belongs to Buddhi</h3><p>The one architectural decision everything else follows from.</p></a>
-      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Evidence-carrying memory</h3><p>Why every memory keeps the words it came from — and what that buys you.</p></a>
-      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Correction is not deletion</h3><p>Keeping history when facts change, and why overwriting is the wrong default.</p></a>
-      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Dhāraṇā: why memory needs sleep</h3><p>Consolidation, contradiction repair and letting go, done while the agent rests.</p></a>
-      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Ahaṅkāra and Vāsanā</h3><p>The designed self and the learned self — and why only one may change.</p></a>
-      <a class="note" href="#notes"><span class="label">Essay · coming soon</span><h3>Smṛti, without letting slip</h3><p>Yoga Sūtra 1.11 on memory, and how Bodha plans a recall.</p></a>
-    </div>
-  </div>
-</section>
-
-<!-- 09 FOUNDER / ACCESS -->
+<!-- 08 FOUNDER / ACCESS -->
 <section id="access" style="border-top:none;padding-top:24px">
   <div class="container">
     <div class="cta reveal">
       <div>
-        <div class="label" style="color:#a99f90"><b>08</b> &nbsp;Early access</div>
-        <h2>Give your agents a mind that remembers well.</h2>
-        <p>Bodha is in private development. If you are building assistants, domain agents or multi-agent systems and want to try it, write to us.</p>
+        <div class="label" style="color:#a99f90"><b>07</b> &nbsp;Early access</div>
+        <h2>Good memory is mostly knowing what to forget.</h2>
+        <p>Bodha is in private development. If you&rsquo;re interested, write to us.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
           <a class="btn btn-ink" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Request early access →</a>
         </div>
       </div>
       <div class="founder">
         <div class="label" style="color:#a99f90">Built by</div>
-        <div class="who">[Your name]</div>
-        <p style="margin:6px 0 14px">[One line about you — background, and why agent memory.]</p>
-        <p style="margin:0"><a href="mailto:pavan.mv@bodha-mem.com">pavan.mv@bodha-mem.com</a> &nbsp;·&nbsp; <a href="#">LinkedIn</a></p>
+        <div class="who">Pavan MV<a class="social" href="https://x.com/mvpavan42" rel="noopener" aria-label="Pavan MV on X" title="@mvpavan42 on X"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a></div>
+        <p style="margin:10px 0 0"><a href="mailto:pavan.mv@bodha-mem.com">pavan.mv@bodha-mem.com</a></p>
       </div>
     </div>
   </div>
