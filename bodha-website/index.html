@@ -155,15 +155,6 @@ figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;ma
 .cycle-note{margin-top:28px;font-family:var(--serif);font-style:italic;color:var(--sage);font-size:17px}
 @media (max-width:960px){.life{grid-template-columns:repeat(2,1fr);row-gap:28px}.life::before{display:none}}
 
-/* sutras / principles */
-.sutras{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule);margin-top:40px}
-.s{padding:30px 26px 30px 0;border-bottom:1px solid var(--rule)}
-.s:not(:nth-child(3n)){border-right:1px solid var(--rule)}
-.s:not(:nth-child(3n+1)){padding-left:26px}
-.s .num{font-family:var(--mono);font-size:12px;color:var(--saffron)}
-.s h3{font-size:22px;line-height:1.25;margin:10px 0 10px}
-.s p{font-size:14.5px;color:var(--ink-2)}
-@media (max-width:860px){.sutras{grid-template-columns:1fr}.s{border-right:none!important;padding-left:0!important}}
 
 /* status */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0 36px}
@@ -257,7 +248,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   <div class="container">
     <a class="brand" href="#top"><span>Bodha</span></a>
     <div class="navlinks">
-      <a href="#insight">Insight</a><a href="#mind">The mind</a><a href="#life">Lifecycle</a><a href="#sutras">Sūtras</a><a href="#status">Status</a><a href="#notes">Notes</a>
+      <a href="#insight">Insight</a><a href="#mind">The mind</a><a href="#life">Lifecycle</a><a href="#status">Status</a><a href="#notes">Notes</a>
     </div>
     <a class="btn btn-ink" style="padding:9px 16px;font-size:13.5px" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Early access</a>
   </div>
@@ -471,30 +462,11 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 07 SUTRAS -->
-<section id="sutras">
-  <div class="container">
-    <div class="reveal">
-      <div class="label"><b>06</b> &nbsp;Sūtras · सूत्र</div>
-      <h2>Six threads the system is strung on.</h2>
-      <p class="lede">A sūtra is a thread — a short rule meant to be held. These are Bodha's, enforced as invariants in code wherever they are live.</p>
-    </div>
-    <div class="sutras reveal">
-      <div class="s"><div class="num">I.</div><h3>Nothing is remembered without evidence.</h3><p>Every memory carries the verbatim words it came from, and the turn they were spoken in.</p><span class="chip live">Live</span></div>
-      <div class="s"><div class="num">II.</div><h3>Reasoning decides; the substrate holds.</h3><p>No model runs inside the commit to the memory substrate. The substrate never chooses what to keep.</p><span class="chip live">Live</span></div>
-      <div class="s"><div class="num">III.</div><h3>Correction is not deletion.</h3><p>When something changes, the old memory is retired with its history intact, and every correction is logged.</p><span class="chip live">Live</span></div>
-      <div class="s"><div class="num">IV.</div><h3>One mind's memory is never another's.</h3><p>Memories are bound to the person they are about, even in a shared pool.</p><span class="chip live">Live</span></div>
-      <div class="s"><div class="num">V.</div><h3>The self is given; habits are earned.</h3><p>Ahaṅkāra — the agent's identity — is read-only. Vāsanā — its tendencies — is learned, and capped in influence.</p><span class="chip dev">In development</span></div>
-      <div class="s"><div class="num">VI.</div><h3>Rest is part of remembering.</h3><p>Dhāraṇā works while the agent is idle: consolidating, reconciling, and letting go.</p><span class="chip dev">In development</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 08 STATUS -->
+<!-- 07 STATUS -->
 <section id="status">
   <div class="container">
     <div class="reveal">
-      <div class="label"><b>07</b> &nbsp;Where we are</div>
+      <div class="label"><b>06</b> &nbsp;Where we are</div>
       <h2>A working core, in private development.</h2>
       <p class="lede">The full pipeline runs end to end — perceive, ground, keep, recall — with more than 2,400 automated tests. Here is what is live, and what is next.</p>
     </div>
@@ -517,11 +489,11 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 09 NOTES -->
+<!-- 08 NOTES -->
 <section id="notes">
   <div class="container">
     <div class="reveal">
-      <div class="label"><b>08</b> &nbsp;Design notes</div>
+      <div class="label"><b>07</b> &nbsp;Design notes</div>
       <h2>Reading Patañjali as a systems architect.</h2>
       <p class="lede">Essays on the decisions behind Bodha — each faculty, each boundary, and what it took to make them run.</p>
     </div>
@@ -536,7 +508,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 10 FOUNDER / ACCESS -->
+<!-- 09 FOUNDER / ACCESS -->
 <section id="access" style="border-top:none;padding-top:24px">
   <div class="container">
     <div class="cta reveal">
