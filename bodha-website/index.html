@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bodha — memory that sleeps, learns, forgets</title>
-<meta name="description" content="Bodha (बोध) is a memory system for AI agents, designed from Patañjali's Yoga Sūtras and the Sāṅkhya model of mind.">
+<title>Bodha — learn, consolidate, forget</title>
+<meta name="description" content="Bodha (बोध) is a cognitive memory system for AI agents, inspired by Patañjali's Yoga Sūtras and the Sāṅkhya model of mind.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -64,9 +64,9 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 
 /* sutra epigraph */
 .sutra{text-align:center;padding:110px 0}
-.sutra .deva{font-size:clamp(30px,5vw,52px);color:var(--ink);line-height:1.3}
+.sutra .deva{font-size:clamp(26px,4vw,42px);max-width:900px;margin:0 auto;color:var(--ink);line-height:1.3}
 .sutra .iast{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-2);margin:14px 0 6px}
-.sutra .tr{font-size:17px;color:var(--ink-2)}
+.sutra .tr{font-size:17px;color:var(--ink-2);max-width:620px;margin:0 auto}
 .sutra .src{margin-top:18px}
 .sutra .turn{max-width:640px;margin:56px auto 0;font-family:var(--serif);font-size:clamp(20px,2.6vw,26px);line-height:1.45;font-weight:300}
 .sutra .turn b{font-weight:400;color:var(--saffron)}
@@ -215,9 +215,9 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 <header class="hero" id="top">
   <div class="container hero-grid">
     <div>
-      <div class="label"><b>बोध</b> &nbsp;·&nbsp; Bodha — understanding</div>
-      <h1>Memory that <em>sleeps</em>, learns, forgets.</h1>
-      <p class="lede">Bodha is a memory system for AI agents, designed from Patañjali's Yoga Sūtras and the Sāṅkhya model of mind — so agents remember what matters, correct what has changed, and let go of what no longer holds.</p>
+      <div class="label"><b>बोध</b> &nbsp;·&nbsp; Cognitive memory for AI agents</div>
+      <h1>Learn. <em>Consolidate.</em> Forget.</h1>
+      <p class="lede">Bodha is a cognitive memory system for AI agents, inspired by Patañjali's Yoga Sūtras and the Sāṅkhya model of mind, so agents remember what matters, learn the patterns behind it, correct what has changed, and let go of what no longer holds.</p>
       <div class="actions">
         <a class="btn btn-ink" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Request early access →</a>
         <a class="btn btn-line" href="#mind">Explore the mind</a>
@@ -234,7 +234,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <circle cx="220" cy="220" r="210"/><circle cx="220" cy="220" r="170"/><circle cx="220" cy="220" r="130"/><circle cx="220" cy="220" r="90"/><circle cx="220" cy="220" r="50" stroke="#c4561a" stroke-opacity=".5"/>
       </g>
       <g class="spin" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" fill="#8a7f70">
-        <text><textPath href="#r5">INDRIYA · THE SENSES · INDRIYA · THE SENSES · INDRIYA · THE SENSES ·</textPath></text>
+        <text><textPath href="#r5">INDRIYA · INPUTS · I/O · INDRIYA · INPUTS · I/O · INDRIYA · INPUTS · I/O ·</textPath></text>
         <text><textPath href="#r3">BUDDHI · INTELLECT · BUDDHI · INTELLECT ·</textPath></text>
       </g>
       <g class="spin2" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" fill="#8a7f70">
@@ -250,11 +250,11 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 <!-- 02 SUTRA + PROBLEM -->
 <section class="sutra reveal">
   <div class="container">
-    <div class="deva">योगश्चित्तवृत्तिनिरोधः</div>
-    <div class="iast">yogaś citta-vṛtti-nirodhaḥ</div>
-    <div class="tr">Yoga is the stilling of the movements of the mind.</div>
-    <div class="src label">Patañjali · Yoga Sūtra 1.2</div>
-    <p class="turn">An agent's mind is all movement — every message, every tool call, every passing claim. <b>Bodha brings the same discipline to machine memory:</b> not everything that passes through the mind should become a memory.</p>
+    <div class="deva">जातिदेशकालव्यवहितानामप्यानन्तर्यं स्मृतिसंस्कारयोरेकरूपत्वात्</div>
+    <div class="iast">jāti-deśa-kāla-vyavahitānām apy ānantaryaṁ smṛti-saṁskārayor eka-rūpatvāt</div>
+    <div class="tr">There is unbroken continuity, even when separated by species, space and time, because memory and impressions (saṁskāras) are one in form.</div>
+    <div class="src label">Patañjali · Yoga Sūtra 4.9</div>
+    <p class="turn">Sessions end. Models change. Conversations scatter. <b>What an agent has learned should not.</b> Bodha carries an agent's understanding across time — remembered, refined, and true.</p>
   </div>
 </section>
 
@@ -286,10 +286,10 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
       <div class="lenses">
         <div class="lens"><div class="label" style="color:var(--saffron)">Sāṅkhya-Yoga</div><h3>Dhṛti serves Buddhi</h3><p>Holding firm to what is true is an act of the discerning intellect, not of the mind-field that stores impressions.</p></div>
         <div class="lens"><div class="label" style="color:var(--indigo)">Neuroscience</div><h3>Hippocampus gates</h3><p>The hippocampus decides what is consolidated; the neocortex holds it. Selection and storage are different organs.</p></div>
-        <div class="lens"><div class="label" style="color:var(--sage)">Engineering</div><h3>Authority in the app</h3><p>Write decisions live in the reasoning layer. The database commits what it is given — and keeps every version.</p></div>
+        <div class="lens"><div class="label" style="color:var(--sage)">Engineering</div><h3>Authority in the app</h3><p>Write decisions live in the reasoning layer. The memory substrate commits what it is given — and keeps every version.</p></div>
       </div>
       <div class="converge"><svg width="200" height="40" viewBox="0 0 200 40" aria-hidden="true"><path d="M20,0 C20,26 100,18 100,38 M100,0 L100,38 M180,0 C180,26 100,18 100,38" fill="none" stroke="#cbbfa9"/></svg></div>
-      <div class="rule-box"><div class="big">Reasoning decides what to keep. Storage only holds.</div><div class="small">The founding rule of Bodha's architecture.</div></div>
+      <div class="rule-box"><div class="big">Reasoning decides what to keep. The substrate only holds.</div><div class="small">The founding rule of Bodha's architecture.</div></div>
     </figure>
     <blockquote class="quote reveal">“Dhṛti — the write gate — is a function of Buddhi, reasoning, not of Citta, storage. Citta is the field of impressions; its nature is associative and relational, not transactional.”<cite>Bodha design notes, v1.1</cite></blockquote>
   </div>
@@ -337,14 +337,14 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
             <path class="edge sleep" id="e-dha-cit" d="M590,456 C556,456 540,480 526,494" marker-end="url(#m-a)"/>
             <path class="edge sleep" id="e-dha-vas" d="M712,420 L712,196 L216,196 L204,206" marker-end="url(#m-a)"/>
             <!-- nodes -->
-            <g class="node" data-id="indriya"><rect x="270" y="16" width="220" height="60" rx="14"/><text class="dv" x="290" y="52" fill="#c4561a">इन्द्रिय</text><text class="nm" x="356" y="44">Indriyas</text><text class="gl" x="356" y="62">the senses</text></g>
-            <g class="node" data-id="ahankara"><rect x="20" y="114" width="180" height="60" rx="14"/><text class="dv" x="36" y="150" fill="#c4561a">अहं</text><text class="nm" x="80" y="142">Ahaṅkāra</text><text class="gl" x="80" y="160">the I-maker</text></g>
+            <g class="node" data-id="indriya"><rect x="270" y="16" width="220" height="60" rx="14"/><text class="dv" x="290" y="52" fill="#c4561a">इन्द्रिय</text><text class="nm" x="356" y="44">Indriyas</text><text class="gl" x="356" y="62">inputs · I/O</text></g>
+            <g class="node" data-id="ahankara"><rect x="20" y="114" width="180" height="60" rx="14"/><text class="dv" x="36" y="150" fill="#c4561a">अहं</text><text class="nm" x="80" y="142">Ahaṅkāra</text><text class="gl" x="80" y="160">identity</text></g>
             <g class="node" data-id="vasana"><rect x="20" y="192" width="180" height="60" rx="14"/><text class="dv" x="36" y="228" fill="#4d7a52">वास</text><text class="nm" x="80" y="220">Vāsanā</text><text class="gl" x="80" y="238">learned tendencies</text></g>
             <g class="node" data-id="manas"><rect x="278" y="114" width="204" height="60" rx="14"/><text class="dv" x="296" y="150" fill="#c4561a">मनस्</text><text class="nm" x="356" y="142">Manas</text><text class="gl" x="356" y="160">the working mind</text></g>
             <g class="node" data-id="dhi"><rect x="222" y="268" width="150" height="88" rx="14"/><text class="dv" x="240" y="300" fill="#2e3a75">धी</text><text class="nm" x="268" y="298">Dhī</text><text class="gl" x="240" y="322">plans each recall</text><text class="gl" x="240" y="340">never writes</text></g>
             <g class="node" data-id="dhrti"><rect x="390" y="268" width="150" height="88" rx="14"/><text class="dv" x="408" y="300" fill="#c4561a">धृति</text><text class="nm" x="450" y="298">Dhṛti</text><text class="gl" x="408" y="322">the write gate</text><text class="gl" x="408" y="340">evidence or nothing</text></g>
             <g class="node" data-id="smrti"><rect x="20" y="414" width="180" height="64" rx="14"/><text class="dv" x="36" y="452" fill="#2e3a75">स्मृति</text><text class="nm" x="92" y="442">Smṛti</text><text class="gl" x="92" y="460">recollection</text></g>
-            <g class="node" data-id="citta"><rect x="236" y="486" width="288" height="76" rx="18" style="fill:#1c1915;stroke:#1c1915"/><text class="dv" x="258" y="530" fill="#e3b48f" style="font-size:24px">चित्त</text><text class="nm" x="318" y="518" style="fill:#faf7f1">Citta</text><text class="gl" x="318" y="537" style="fill:#cfc6b8">the field of impressions</text><text class="gl" x="318" y="553" style="fill:#cfc6b8">memories + their history</text></g>
+            <g class="node" data-id="citta"><rect x="236" y="486" width="288" height="76" rx="18" style="fill:#1c1915;stroke:#1c1915"/><text class="dv" x="258" y="530" fill="#e3b48f" style="font-size:24px">चित्त</text><text class="nm" x="318" y="518" style="fill:#faf7f1">Citta</text><text class="gl" x="318" y="537" style="fill:#cfc6b8">the memory substrate</text><text class="gl" x="318" y="553" style="fill:#cfc6b8">memories + their history</text></g>
             <g class="node" data-id="dharana"><rect x="590" y="420" width="150" height="82" rx="14"/><text class="dv" x="608" y="452" fill="#4d7a52">धारणा</text><text class="nm" x="608" y="474">Dhāraṇā</text><text class="gl" x="608" y="492">sleep · upkeep</text></g>
             <text x="490" y="430" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">WRITE</text>
             <text x="22" y="398" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">RESULTS</text>
@@ -354,7 +354,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <aside class="panel" aria-live="polite">
           <div class="pdv" id="p-dv">चित्त</div>
           <h3 id="p-nm">Citta</h3>
-          <div class="iast" id="p-gl">the field of impressions</div>
+          <div class="iast" id="p-gl">citta — the memory substrate</div>
           <div class="meaning" id="p-mean"></div>
           <div class="src" id="p-src"></div>
           <p class="role" id="p-role"></p>
@@ -398,7 +398,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
     </div>
     <div class="sutras reveal">
       <div class="s"><div class="num">I.</div><h3>Nothing is remembered without evidence.</h3><p>Every memory carries the verbatim words it came from, and the turn they were spoken in.</p><span class="chip live">Live</span></div>
-      <div class="s"><div class="num">II.</div><h3>Reasoning decides; storage holds.</h3><p>No model runs inside the database commit. The store never chooses what to keep.</p><span class="chip live">Live</span></div>
+      <div class="s"><div class="num">II.</div><h3>Reasoning decides; the substrate holds.</h3><p>No model runs inside the commit to the memory substrate. The substrate never chooses what to keep.</p><span class="chip live">Live</span></div>
       <div class="s"><div class="num">III.</div><h3>Correction is not deletion.</h3><p>When something changes, the old memory is retired with its history intact, and every correction is logged.</p><span class="chip live">Live</span></div>
       <div class="s"><div class="num">IV.</div><h3>One mind's memory is never another's.</h3><p>Memories are bound to the person they are about, even in a shared pool.</p><span class="chip live">Live</span></div>
       <div class="s"><div class="num">V.</div><h3>The self is given; habits are earned.</h3><p>Ahaṅkāra — the agent's identity — is read-only. Vāsanā — its tendencies — is learned, and capped in influence.</p><span class="chip dev">In development</span></div>
@@ -482,15 +482,15 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 
 <script>
 const N={
-  indriya:{dv:"इन्द्रिय",nm:"Indriyas",gl:"indriya — the senses",mean:"In Sāṅkhya, the faculties of perception and action through which the world reaches the mind.",src:"Sāṅkhya",role:"Every input — user messages, tool results, documents. Bodha's edge with the world.",st:"live"},
-  ahankara:{dv:"अहंकार",nm:"Ahaṅkāra",gl:"ahaṅkāra — the I-maker",mean:"In Sāṅkhya, the principle of individuation: the sense of 'I'.",src:"Sāṅkhya",role:"The agent's designed identity, placed first in every context. Read-only — the system can never rewrite who the agent is.",st:"live"},
+  indriya:{dv:"इन्द्रिय",nm:"Indriyas",gl:"indriya — inputs and outputs",mean:"In Sāṅkhya, the faculties of perception and action through which the world reaches the mind.",src:"Sāṅkhya",role:"Everything that comes in or goes out — user messages, tool results, documents, replies. Bodha's edge with the world.",st:"live"},
+  ahankara:{dv:"अहंकार",nm:"Ahaṅkāra",gl:"ahaṅkāra — identity",mean:"In Sāṅkhya, the principle of individuation: the sense of 'I'.",src:"Sāṅkhya",role:"The agent's designed identity, placed first in every context. Read-only — the system can never rewrite who the agent is.",st:"live"},
   vasana:{dv:"वासना",nm:"Vāsanā",gl:"vāsanā — latent tendency",mean:"The tendencies left behind by repeated impressions.",src:"Yoga Sūtra 4.8",role:"Behavioural tendencies learned from experience — earned, never assumed, and capped in how much they may influence a turn.",st:"dev"},
-  manas:{dv:"मनस्",nm:"Manas",gl:"manas — the working mind",mean:"The mind that gathers and arranges what the senses bring, before judgment.",src:"Sāṅkhya",role:"Assembles each turn's context in layers — identity, tendencies, history, the current message. Compresses; never reasons.",st:"live"},
+  manas:{dv:"मनस्",nm:"Manas",gl:"manas — the working mind",mean:"The mind that gathers and arranges what the inputs bring, before judgment.",src:"Sāṅkhya",role:"Assembles each turn's context in layers — identity, tendencies, history, the current message. Compresses; never reasons.",st:"live"},
   buddhi:{dv:"बुद्धि",nm:"Buddhi",gl:"buddhi — the discerning intellect",mean:"In Sāṅkhya, the first and subtlest evolute of nature, and the seat of judgment.",src:"Sāṅkhya",role:"The reasoning loop. Decides when to recall and what deserves to be remembered. Dhī and Dhṛti act on its behalf.",st:"live"},
   dhi:{dv:"धी",nm:"Dhī",gl:"dhī — insight, thought",mean:"Insight; the reflective power of the intellect.",src:"Vedic usage",role:"Classifies each question and builds a retrieval plan from templates — what to search, how, and in what order. It never writes.",st:"live"},
   dhrti:{dv:"धृति",nm:"Dhṛti",gl:"dhṛti — steadfastness",mean:"Firmness; the resolve that holds to what is right.",src:"Bhagavad Gītā 18.33",role:"The write gate. Extracts candidate memories, requires the verbatim quote each came from, and judges whether it is new, an update, or a contradiction.",st:"live"},
   smrti:{dv:"स्मृति",nm:"Smṛti",gl:"smṛti — memory, recollection",mean:"“Memory is not letting slip an object once experienced.”",src:"Yoga Sūtra 1.11",role:"Carries out Dhī's plan: keyword, semantic, graph and time-aware search, then ranks what it finds.",st:"live"},
-  citta:{dv:"चित्त",nm:"Citta",gl:"citta — the mind-field",mean:"The field in which impressions (saṁskāras) are held — the citta of Yoga Sūtra 1.2.",src:"Yoga Sūtra 1.2",role:"Durable memory with full history. It holds; it never decides. Corrections retire a memory rather than erase it.",st:"live"},
+  citta:{dv:"चित्त",nm:"Citta",gl:"citta — the memory substrate",mean:"The field in which impressions (saṁskāras) are held — the citta of Yoga Sūtra 1.2.",src:"Yoga Sūtra 1.2",role:"The memory substrate: every memory, with its full history. It holds; it never decides. Corrections retire a memory rather than erase it.",st:"live"},
   dharana:{dv:"धारणा",nm:"Dhāraṇā",gl:"dhāraṇā — holding, concentration",mean:"The sixth of Patañjali's eight limbs: binding the mind to one place.",src:"Yoga Sūtra 3.1",role:"Background 'sleep': consolidates related memories, repairs contradictions, and distils repeated experience into Vāsanā.",st:"dev"}
 };
 const FLOWS={
