@@ -8,18 +8,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>(()=>{let t=null;try{t=localStorage.getItem("bodha-theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t})()</script>
 <style>
 :root{
   --paper:#faf7f1; --paper-2:#f3ede2; --ink:#1c1915; --ink-2:#4a4237; --ink-3:#756a5c;
   --rule:#e4dccd; --saffron:#c4561a; --saffron-soft:#f6e6d8;
   --indigo:#2e3a75; --indigo-soft:#e6e9f4; --sage:#4d7a52; --sage-soft:#e5efe4;
   --amber:#8c5f12; --slate:#6b7280;
+  --card:#fff; --nav-bg:rgba(250,247,241,.86); --edge:#cbbfa9; --faint:#b5a88f; --deco:#8a7f70;
+  --edge-write:#e2a77f; --edge-recall:#9aa3cc; --edge-sleep:#9fbf9f;
+  --tick-p:rgba(196,86,26,.5); --tick-a:rgba(46,58,117,.5);
+  --inv-bg:#1c1915; --inv-fg:#faf7f1; --inv-fg-2:#cfc6b8; --inv-accent:#e3b48f;
+  --inv-line:#4a4237; --inv-muted:#a99f90; --inv-icon:#c9bfb0;
   --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
   --deva:"Tiro Devanagari Sanskrit",serif; --mono:"JetBrains Mono",ui-monospace,monospace;
   --max:1120px;
 }
+html[data-theme="dark"]{color-scheme:dark;
+  --paper:#14110e; --paper-2:#1c1814; --ink:#f0e8db; --ink-2:#cdc2b2; --ink-3:#a59886;
+  --rule:#332c25; --saffron:#ea8547; --saffron-soft:#3b2517;
+  --indigo:#9eabf0; --indigo-soft:#20253f; --sage:#8fc394; --sage-soft:#1c2a1d;
+  --amber:#e2b45c; --slate:#a59886;
+  --card:#1d1915; --nav-bg:rgba(20,17,14,.86); --edge:#4a4238; --faint:#6e6354; --deco:#7f7464;
+  --edge-write:#8a4f30; --edge-recall:#4e5788; --edge-sleep:#4c6a4f;
+  --tick-p:rgba(234,133,71,.55); --tick-a:rgba(158,171,240,.55);
+  --inv-bg:#27211b; --inv-fg:#f0e8db; --inv-fg-2:#cdc2b2; --inv-accent:#f2a774;
+  --inv-line:#40382f; --inv-muted:#a59886; --inv-icon:#cdc2b2;
+}
 *{box-sizing:border-box}
-html,body{margin:0;background:transparent}
+html,body{margin:0;background:var(--paper)}
 .site{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;border-radius:var(--radius,0);overflow:hidden;overflow:clip}
 a{color:inherit}
 .container{max-width:var(--max);margin:0 auto;padding:0 28px}
@@ -39,7 +56,7 @@ section{padding:96px 0;border-top:1px solid var(--rule)}
 .chip.live{color:var(--sage)} .chip.dev{color:var(--amber)} .chip.plan{color:var(--slate)}
 
 /* nav */
-nav{position:sticky;top:0;z-index:5;background:rgba(250,247,241,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+nav{position:sticky;top:0;z-index:5;background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
 nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
 .brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
 .brand .deva{font-size:26px;color:var(--saffron);line-height:1}
@@ -48,6 +65,10 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 .navlinks a{text-decoration:none}
 .navlinks a:hover{color:var(--saffron)}
 @media (max-width:860px){.navlinks{display:none}}
+.nav-r{display:flex;align-items:center;gap:10px}
+.mode{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);background:transparent;color:var(--ink-2);cursor:pointer;transition:color .2s,border-color .2s}
+.mode:hover{color:var(--saffron);border-color:var(--ink-3)}
+.mode .moon{display:none}html[data-theme="dark"] .mode .sun{display:none}html[data-theme="dark"] .mode .moon{display:block}
 
 /* hero */
 .hero{padding:88px 0 96px;border-top:none;position:relative}
@@ -85,7 +106,7 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 .problem-list .n{font-family:var(--mono);font-size:12px;color:var(--saffron);padding-top:4px}
 
 /* figure */
-figure{margin:40px 0 0;background:#fff;border:1px solid var(--rule);border-radius:18px;padding:32px}
+figure{margin:40px 0 0;background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:32px}
 figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
 .quote{border-left:2px solid var(--saffron);padding:4px 0 4px 22px;margin:40px 0 0;font-family:var(--serif);font-size:21px;font-weight:300;line-height:1.5;max-width:760px}
 .quote cite{display:block;margin-top:10px;font-family:var(--mono);font-size:11.5px;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
@@ -94,9 +115,9 @@ figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;ma
 .lens h3{font-size:20px;margin:8px 0 8px}
 .lens p{font-size:14.5px;color:var(--ink-2);margin:0}
 .converge{display:flex;justify-content:center;margin:18px 0}
-.rule-box{background:var(--ink);color:var(--paper);border-radius:14px;padding:26px;text-align:center}
+.rule-box{background:var(--inv-bg);color:var(--inv-fg);border-radius:14px;padding:26px;text-align:center}
 .rule-box .big{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:300}
-.rule-box .small{color:#e3b48f;font-size:14px;margin-top:4px}
+.rule-box .small{color:var(--inv-accent);font-size:14px;margin-top:4px}
 .lenses.two{grid-template-columns:repeat(2,1fr)}
 @media (max-width:760px){.lenses,.lenses.two{grid-template-columns:1fr}}
 
@@ -114,11 +135,11 @@ figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;ma
 #mindsvg .node .dv{font-family:var(--deva);font-size:20px}
 #mindsvg .node .nm{font-family:var(--sans);font-size:14.5px;font-weight:600;fill:var(--ink)}
 #mindsvg .node .gl{font-family:var(--sans);font-size:12.5px;fill:var(--ink-3)}
-#mindsvg .edge{fill:none;stroke:#cbbfa9;stroke-width:1.4;transition:all .25s ease}
+#mindsvg .edge{fill:none;stroke:var(--edge);stroke-width:1.4;transition:all .25s ease}
 #mindsvg.f-write .edge.write{stroke:var(--saffron);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1s linear infinite}
 #mindsvg.f-recall .edge.recall{stroke:var(--indigo);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1s linear infinite}
 #mindsvg.f-sleep .edge.sleep{stroke:var(--sage);stroke-width:2.2;stroke-dasharray:6 6;animation:flow 1.4s linear infinite}
-#mindsvg.f-all .edge.write{stroke:#e2a77f}#mindsvg.f-all .edge.recall{stroke:#9aa3cc}#mindsvg.f-all .edge.sleep{stroke:#9fbf9f}
+#mindsvg.f-all .edge.write{stroke:var(--edge-write)}#mindsvg.f-all .edge.recall{stroke:var(--edge-recall)}#mindsvg.f-all .edge.sleep{stroke:var(--edge-sleep)}
 #mindsvg.dim .node:not(.on) {opacity:.32}
 #mindsvg .node.on rect{stroke-width:1.8}
 #mindsvg.f-write .node.on rect{stroke:var(--saffron);fill:var(--saffron-soft)}
@@ -159,7 +180,7 @@ figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;ma
 
 /* status */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0 36px}
-.stat{border:1px solid var(--rule);border-radius:16px;padding:24px;background:#fff}
+.stat{border:1px solid var(--rule);border-radius:16px;padding:24px;background:var(--card)}
 .stat .v{font-family:var(--serif);font-weight:300;font-size:52px;line-height:1}
 .stat .v small{font-size:22px}
 .stat .k{font-size:14px;color:var(--ink-2);margin-top:10px}
@@ -174,17 +195,17 @@ table.status tr:last-child td{border-bottom:1px solid var(--rule)}
 
 
 /* founder / cta */
-.cta{background:var(--ink);color:var(--paper);border-radius:22px;padding:56px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:8px}
-.cta h2{color:var(--paper)}
-.cta p{color:#cfc6b8}
-.cta .btn-ink{background:var(--paper);color:var(--ink)}
-.cta .btn-line{border-color:#cfc6b8;color:var(--paper)}
-.founder{border-left:1px solid #4a4237;padding-left:32px}
+.cta{background:var(--inv-bg);color:var(--inv-fg);border-radius:22px;padding:56px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:8px}
+.cta h2{color:var(--inv-fg)}
+.cta p{color:var(--inv-fg-2)}
+.cta .btn-ink{background:var(--inv-fg);color:var(--inv-bg)}
+.cta .btn-line{border-color:var(--inv-fg-2);color:var(--inv-fg)}
+.founder{border-left:1px solid var(--inv-line);padding-left:32px}
 .founder .who{font-family:var(--serif);font-size:24px;display:flex;align-items:center;gap:16px}
-.founder .social{display:inline-flex;color:#c9bfb0;transition:color .2s}
-.founder .social:hover{color:#e3b48f}
-.founder a{color:#e3b48f}
-@media (max-width:860px){.cta{grid-template-columns:1fr;padding:32px}.founder{border-left:none;padding-left:0;border-top:1px solid #4a4237;padding-top:24px}}
+.founder .social{display:inline-flex;color:var(--inv-icon);transition:color .2s}
+.founder .social:hover{color:var(--inv-accent)}
+.founder a{color:var(--inv-accent)}
+@media (max-width:860px){.cta{grid-template-columns:1fr;padding:32px}.founder{border-left:none;padding-left:0;border-top:1px solid var(--inv-line);padding-top:24px}}
 footer{padding:48px 0 56px;color:var(--ink-3);font-size:13.5px}
 footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
@@ -200,18 +221,18 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 .kgrid::before,.kgrid::after{content:"";position:absolute;left:calc((100% - 72px)/14);right:calc((100% - 72px)/14)}
 .kgrid::before{top:0;border-top:1px solid var(--saffron)}
 .kgrid::after{bottom:0;border-top:1px solid var(--indigo)}
-.kgrid .k{position:relative;border:1px solid var(--ink);border-radius:10px;padding:12px 8px;text-align:center;background:#fff}
-.kgrid .k.st{border:1px dashed #b5a88f}
+.kgrid .k{position:relative;border:1px solid var(--ink);border-radius:10px;padding:12px 8px;text-align:center;background:var(--card)}
+.kgrid .k.st{border:1px dashed var(--faint)}
 .kgrid .k b{display:block;font-size:14px;font-weight:600}
 .kgrid .k span{display:block;font-size:12px;line-height:1.35;color:var(--ink-3);margin-top:4px}
 .kgrid .k i{position:absolute;left:50%;height:var(--t);border-left:1px solid}
-.kgrid .k i.p{bottom:calc(100% + 1px);border-color:rgba(196,86,26,.5)}
-.kgrid .k i.a{top:calc(100% + 1px);border-color:rgba(46,58,117,.5)}
+.kgrid .k i.p{bottom:calc(100% + 1px);border-color:var(--tick-p)}
+.kgrid .k i.a{top:calc(100% + 1px);border-color:var(--tick-a)}
 .kgrid .k i::after{content:"";position:absolute;left:-4px;width:7px;height:7px;border-radius:50%}
 .kgrid .k i.p::after{top:-4px;background:var(--saffron)}
 .kgrid .k i.a::after{bottom:-4px;background:var(--indigo)}
 .kgrid .grp{position:absolute;z-index:1;top:calc(var(--t) - 22px);text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-.kgrid .grp span{background:#fff;padding:0 6px}
+.kgrid .grp span{background:var(--card);padding:0 6px}
 .kgrid .grp.st{left:0;width:calc((100% - 72px)/7)}
 .kgrid .grp.lt{left:calc((100% - 72px)/7 + 12px);right:0}
 .kinds-close{border-top:1px solid var(--rule);margin-top:26px;padding-top:20px;text-align:center}
@@ -246,7 +267,10 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
     <div class="navlinks">
       <a href="#insight">Insight</a><a href="#mind">Mind-stack</a><a href="#kinds">Memory</a><a href="#life">Lifecycle</a><a href="#status">Status</a>
     </div>
-    <a class="btn btn-ink" style="padding:9px 16px;font-size:13.5px" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Early access</a>
+    <div class="nav-r">
+      <button class="mode" id="mode" type="button" aria-label="Switch to dark theme"><svg class="sun" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></button>
+      <a class="btn btn-ink" style="padding:9px 16px;font-size:13.5px" href="mailto:pavan.mv@bodha-mem.com?subject=Bodha%20early%20access">Early access</a>
+    </div>
   </div>
 </nav>
 
@@ -270,24 +294,24 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <path id="r2" d="M220,220 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/>
         <path id="r1" d="M220,220 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/>
       </defs>
-      <g fill="none" stroke="#e4dccd">
-        <circle cx="220" cy="220" r="210"/><circle cx="220" cy="220" r="170"/><circle cx="220" cy="220" r="130"/><circle cx="220" cy="220" r="90"/><circle cx="220" cy="220" r="50" stroke="#c4561a" stroke-opacity=".5"/>
+      <g fill="none" style="stroke:var(--rule)">
+        <circle cx="220" cy="220" r="210"/><circle cx="220" cy="220" r="170"/><circle cx="220" cy="220" r="130"/><circle cx="220" cy="220" r="90"/><circle cx="220" cy="220" r="50" style="stroke:var(--saffron)" stroke-opacity=".5"/>
       </g>
-      <g class="spin" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" fill="#8a7f70">
+      <g class="spin" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" style="fill:var(--deco)">
         <text><textPath href="#r5">INDRIYA · I/O</textPath></text>
         <text><textPath href="#r5" startOffset="50%">INDRIYA · I/O</textPath></text>
         <text><textPath href="#r3" startOffset="25%">BUDDHI · INTELLECT</textPath></text>
       </g>
-      <g class="spin2" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" fill="#8a7f70">
+      <g class="spin2" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="3" style="fill:var(--deco)">
         <text><textPath href="#r4" startOffset="12%">MANAS · WORKING MIND</textPath></text>
         <text><textPath href="#r4" startOffset="62%">MANAS · WORKING MIND</textPath></text>
         <text><textPath href="#r2" startOffset="50%">AHAṄKĀRA · IDENTITY</textPath></text>
       </g>
-      <g class="spin3" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="2" fill="#c4561a" fill-opacity=".8">
+      <g class="spin3" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="2" style="fill:var(--saffron)" fill-opacity=".8">
         <text class="core"><textPath href="#r1">CITTA · MEMORY SUBSTRATE ·</textPath></text>
       </g>
-      <text x="220" y="231" text-anchor="middle" font-family="Tiro Devanagari Sanskrit, serif" font-size="30" fill="#c4561a">चित्त</text>
-      <circle cx="220" cy="10" r="3.5" fill="#c4561a"/>
+      <text x="220" y="231" text-anchor="middle" font-family="Tiro Devanagari Sanskrit, serif" font-size="30" style="fill:var(--saffron)">चित्त</text>
+      <circle cx="220" cy="10" r="3.5" style="fill:var(--saffron)"/>
     </svg>
   </div>
 </header>
@@ -333,7 +357,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <div class="lens"><div class="label" style="color:var(--saffron)">Sāṅkhya-Yoga</div><h3>Impression to tendency</h3><p>Buddhi discerns. Citta holds the impression. Repetition shapes it into tendency.</p></div>
         <div class="lens"><div class="label" style="color:var(--indigo)">Neuroscience</div><h3>Fast, then slow</h3><p>Attention selects. The hippocampus records. Sleep replay consolidates it into lasting knowledge.</p></div>
       </div>
-      <div class="converge"><svg width="500" height="40" viewBox="0 0 500 40" style="max-width:100%" aria-hidden="true"><path d="M2,0 C2,26 250,18 250,38 M498,0 C498,26 250,18 250,38" fill="none" stroke="#cbbfa9"/></svg></div>
+      <div class="converge"><svg width="500" height="40" viewBox="0 0 500 40" style="max-width:100%" aria-hidden="true"><path d="M2,0 C2,26 250,18 250,38 M498,0 C498,26 250,18 250,38" fill="none" style="stroke:var(--edge)"/></svg></div>
       <div class="rule-box"><div class="big">Discern. Hold. Distil.</div><div class="small">The heart of Bodha.</div></div>
     </figure>
   </div>
@@ -359,7 +383,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         <div>
           <div class="dscroll"><svg id="mindsvg" class="f-all" viewBox="0 0 760 590" role="img" aria-label="Diagram of Bodha's faculties and how memory flows between them">
             <defs>
-              <marker id="m-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b5a88f"/></marker>
+              <marker id="m-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--faint)"/></marker>
             </defs>
             
             <path class="edge write" id="e-ind-man" d="M380,78 L380,112" marker-end="url(#m-a)"/>
@@ -375,19 +399,19 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
             <path class="edge sleep" id="e-cit-dha" d="M526,550 C610,560 660,548 660,510" marker-end="url(#m-a)"/>
             <path class="edge sleep" id="e-dha-cit" d="M564,478 C548,478 538,492 528,504" marker-end="url(#m-a)"/>
             <path class="edge sleep" id="e-dha-vas" d="M720,434 L720,176" marker-end="url(#m-a)"/>
-            <text x="48" y="320" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">RESULTS</text>
-            <text x="540" y="300" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">AFTER EACH TURN</text>
-            <text x="476" y="458" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" fill="#b5a88f" letter-spacing="1.5">REMEMBER</text>
-            <g class="node" data-id="indriya"><rect x="270" y="16" width="220" height="60" rx="14"/><text class="dv" x="286" y="53.0" fill="#c4561a">इन्द्रिय</text><text class="nm" x="354" y="42.0">Indriyas</text><text class="gl" x="354" y="60.0">I/O</text></g>
-            <g class="node" data-id="ahankara"><rect x="20" y="114" width="180" height="60" rx="14"/><text class="dv" x="36" y="151.0" fill="#c4561a">अहं</text><text class="nm" x="78" y="140.0">Ahaṅkāra</text><text class="gl" x="78" y="158.0">identity</text></g>
-            <g class="node" data-id="manas"><rect x="278" y="114" width="204" height="60" rx="14"/><text class="dv" x="294" y="151.0" fill="#c4561a">मनस्</text><text class="nm" x="344" y="140.0">Manas</text><text class="gl" x="344" y="158.0">working mind</text></g>
-            <g class="node" data-id="vasana"><rect x="548" y="114" width="198" height="60" rx="14"/><text class="dv" x="564" y="151.0" fill="#4d7a52">वासना</text><text class="nm" x="622" y="140.0">Vāsanā</text><text class="gl" x="622" y="158.0">learned tendencies</text></g>
-            <g class="node" data-id="buddhi"><rect x="278" y="214" width="204" height="60" rx="14"/><text class="dv" x="294" y="251" fill="#c4561a">बुद्धि</text><text class="nm" x="340" y="240">Buddhi</text><text class="gl" x="340" y="258">intellect · AI agent</text></g>
-            <g class="node" data-id="dhi"><rect x="125" y="320" width="190" height="60" rx="14"/><text class="dv" x="141" y="357" fill="#2e3a75">धी</text><text class="nm" x="173" y="346">Dhī</text><text class="gl" x="173" y="364">plans each recall</text></g>
-            <g class="node" data-id="dhrti"><rect x="445" y="320" width="190" height="60" rx="14"/><text class="dv" x="461" y="357" fill="#c4561a">धृति</text><text class="nm" x="505" y="346">Dhṛti</text><text class="gl" x="505" y="364">discernment</text></g>
-            <g class="node" data-id="smrti"><rect x="20" y="436" width="180" height="64" rx="14"/><text class="dv" x="36" y="475.0" fill="#2e3a75">स्मृति</text><text class="nm" x="82" y="464.0">Smṛti</text><text class="gl" x="82" y="482.0">recollection</text></g>
-            <g class="node" data-id="citta"><rect x="236" y="500" width="288" height="76" rx="18" style="fill:#1c1915;stroke:#1c1915"/><text class="dv" x="258" y="544.0" fill="#e3b48f" style="font-size:24px">चित्त</text><text class="nm" x="318" y="532.0" style="fill:#faf7f1">Citta</text><text class="gl" x="318" y="551.0" style="fill:#cfc6b8">the memory substrate</text><text class="gl" x="318" y="567.0" style="fill:#cfc6b8">memories · skills · history</text></g>
-            <g class="node" data-id="dharana"><rect x="566" y="436" width="174" height="72" rx="14"/><text class="dv" x="582" y="479.0" fill="#4d7a52">धारणा</text><text class="nm" x="642" y="468.0">Dhāraṇā</text><text class="gl" x="642" y="486.0">consolidation</text></g>
+            <text x="48" y="320" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" style="fill:var(--faint)" letter-spacing="1.5">RESULTS</text>
+            <text x="540" y="300" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" style="fill:var(--faint)" letter-spacing="1.5">AFTER EACH TURN</text>
+            <text x="476" y="458" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="10" style="fill:var(--faint)" letter-spacing="1.5">REMEMBER</text>
+            <g class="node" data-id="indriya"><rect x="270" y="16" width="220" height="60" rx="14"/><text class="dv" x="286" y="53.0" style="fill:var(--saffron)">इन्द्रिय</text><text class="nm" x="354" y="42.0">Indriyas</text><text class="gl" x="354" y="60.0">I/O</text></g>
+            <g class="node" data-id="ahankara"><rect x="20" y="114" width="180" height="60" rx="14"/><text class="dv" x="36" y="151.0" style="fill:var(--saffron)">अहं</text><text class="nm" x="78" y="140.0">Ahaṅkāra</text><text class="gl" x="78" y="158.0">identity</text></g>
+            <g class="node" data-id="manas"><rect x="278" y="114" width="204" height="60" rx="14"/><text class="dv" x="294" y="151.0" style="fill:var(--saffron)">मनस्</text><text class="nm" x="344" y="140.0">Manas</text><text class="gl" x="344" y="158.0">working mind</text></g>
+            <g class="node" data-id="vasana"><rect x="548" y="114" width="198" height="60" rx="14"/><text class="dv" x="564" y="151.0" style="fill:var(--sage)">वासना</text><text class="nm" x="622" y="140.0">Vāsanā</text><text class="gl" x="622" y="158.0">learned tendencies</text></g>
+            <g class="node" data-id="buddhi"><rect x="278" y="214" width="204" height="60" rx="14"/><text class="dv" x="294" y="251" style="fill:var(--saffron)">बुद्धि</text><text class="nm" x="340" y="240">Buddhi</text><text class="gl" x="340" y="258">intellect · AI agent</text></g>
+            <g class="node" data-id="dhi"><rect x="125" y="320" width="190" height="60" rx="14"/><text class="dv" x="141" y="357" style="fill:var(--indigo)">धी</text><text class="nm" x="173" y="346">Dhī</text><text class="gl" x="173" y="364">plans each recall</text></g>
+            <g class="node" data-id="dhrti"><rect x="445" y="320" width="190" height="60" rx="14"/><text class="dv" x="461" y="357" style="fill:var(--saffron)">धृति</text><text class="nm" x="505" y="346">Dhṛti</text><text class="gl" x="505" y="364">discernment</text></g>
+            <g class="node" data-id="smrti"><rect x="20" y="436" width="180" height="64" rx="14"/><text class="dv" x="36" y="475.0" style="fill:var(--indigo)">स्मृति</text><text class="nm" x="82" y="464.0">Smṛti</text><text class="gl" x="82" y="482.0">recollection</text></g>
+            <g class="node" data-id="citta"><rect x="236" y="500" width="288" height="76" rx="18" style="fill:var(--inv-bg);stroke:var(--inv-bg)"/><text class="dv" x="258" y="544.0" style="fill:var(--inv-accent);font-size:24px">चित्त</text><text class="nm" x="318" y="532.0" style="fill:var(--inv-fg)">Citta</text><text class="gl" x="318" y="551.0" style="fill:var(--inv-fg-2)">the memory substrate</text><text class="gl" x="318" y="567.0" style="fill:var(--inv-fg-2)">memories · skills · history</text></g>
+            <g class="node" data-id="dharana"><rect x="566" y="436" width="174" height="72" rx="14"/><text class="dv" x="582" y="479.0" style="fill:var(--sage)">धारणा</text><text class="nm" x="642" y="468.0">Dhāraṇā</text><text class="gl" x="642" y="486.0">consolidation</text></g>
           </svg></div><div class="swipe label">Swipe to explore →</div>
           <div class="legend"><span><i style="color:var(--saffron)"></i>remembering</span><span><i style="color:var(--sage)"></i>consolidating</span><span><i style="color:var(--indigo)"></i>recalling</span></div>
         </div>
@@ -483,7 +507,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   <div class="container">
     <div class="cta reveal">
       <div>
-        <div class="label" style="color:#a99f90"><b>07</b> &nbsp;Early access</div>
+        <div class="label" style="color:var(--inv-muted)"><b>07</b> &nbsp;Early access</div>
         <h2>Good memory is mostly knowing what to forget.</h2>
         <p>Bodha is in private development. If you&rsquo;re interested, write to us.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
@@ -491,7 +515,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
         </div>
       </div>
       <div class="founder">
-        <div class="label" style="color:#a99f90">Built by</div>
+        <div class="label" style="color:var(--inv-muted)">Built by</div>
         <div class="who">Pavan MV<a class="social" href="https://x.com/mvpavan42" rel="noopener" aria-label="Pavan MV on X" title="@mvpavan42 on X"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a></div>
         <p style="margin:10px 0 0"><a href="mailto:pavan.mv@bodha-mem.com">pavan.mv@bodha-mem.com</a></p>
       </div>
@@ -565,5 +589,10 @@ setFlow('all');
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
+<script>(()=>{const root=document.documentElement,b=document.getElementById("mode"),mq=matchMedia("(prefers-color-scheme: dark)");
+const label=()=>b.setAttribute("aria-label",root.dataset.theme==="dark"?"Switch to light theme":"Switch to dark theme");
+const set=(t,save)=>{root.dataset.theme=t;label();if(save)try{localStorage.setItem("bodha-theme",t)}catch(e){}};
+label();b.addEventListener("click",()=>set(root.dataset.theme==="dark"?"light":"dark",true));
+mq.addEventListener("change",e=>{let saved=null;try{saved=localStorage.getItem("bodha-theme")}catch(_){}if(!saved)set(e.matches?"dark":"light",false)});})()</script>
 </body>
 </html>
