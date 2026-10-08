@@ -97,7 +97,8 @@ figcaption{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;ma
 .rule-box{background:var(--ink);color:var(--paper);border-radius:14px;padding:26px;text-align:center}
 .rule-box .big{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:300}
 .rule-box .small{color:#e3b48f;font-size:14px;margin-top:4px}
-@media (max-width:760px){.lenses{grid-template-columns:1fr}}
+.lenses.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:760px){.lenses,.lenses.two{grid-template-columns:1fr}}
 
 /* mind diagram */
 .mind{display:grid;grid-template-columns:1.8fr 1fr;gap:28px;align-items:start}
@@ -291,20 +292,18 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   <div class="container">
     <div class="reveal">
       <div class="label"><b>02</b> &nbsp;The insight</div>
-      <h2>Three traditions, one rule.</h2>
-      <p class="lede">Sāṅkhya-Yoga maps the mind as a set of faculties with distinct authority. Read as a systems architecture, it says something modern neuroscience and good engineering both agree with.</p>
+      <h2>Two lenses, one pattern.</h2>
+      <p class="lede">Sāṅkhya-Yoga maps the mind as a set of faculties with distinct authority. Read as a systems architecture, it says something modern neuroscience agrees with.</p>
     </div>
     <figure class="reveal">
-      <figcaption><span class="label">Fig. 1 — Where the decision to remember lives</span></figcaption>
-      <div class="lenses">
-        <div class="lens"><div class="label" style="color:var(--saffron)">Sāṅkhya-Yoga</div><h3>Dhṛti serves Buddhi</h3><p>Holding firm to what is true is an act of the discerning intellect, not of the mind-field that stores impressions.</p></div>
-        <div class="lens"><div class="label" style="color:var(--indigo)">Neuroscience</div><h3>Hippocampus gates</h3><p>The hippocampus decides what is consolidated; the neocortex holds it. Selection and storage are different organs.</p></div>
-        <div class="lens"><div class="label" style="color:var(--sage)">Engineering</div><h3>Authority in the app</h3><p>Write decisions live in the reasoning layer. The memory substrate commits what it is given — and keeps every version.</p></div>
+      <figcaption><span class="label">Fig. 1 · An ancient map, a modern science</span></figcaption>
+      <div class="lenses two">
+        <div class="lens"><div class="label" style="color:var(--saffron)">Sāṅkhya-Yoga</div><h3>Impression to tendency</h3><p>Buddhi discerns. Citta holds the impression. Repetition shapes it into tendency.</p></div>
+        <div class="lens"><div class="label" style="color:var(--indigo)">Neuroscience</div><h3>Fast, then slow</h3><p>Attention selects. The hippocampus records. Sleep replay consolidates it into lasting knowledge.</p></div>
       </div>
-      <div class="converge"><svg width="200" height="40" viewBox="0 0 200 40" aria-hidden="true"><path d="M20,0 C20,26 100,18 100,38 M100,0 L100,38 M180,0 C180,26 100,18 100,38" fill="none" stroke="#cbbfa9"/></svg></div>
-      <div class="rule-box"><div class="big">Reasoning decides what to keep. The substrate only holds.</div><div class="small">The founding rule of Bodha's architecture.</div></div>
+      <div class="converge"><svg width="500" height="40" viewBox="0 0 500 40" style="max-width:100%" aria-hidden="true"><path d="M2,0 C2,26 250,18 250,38 M498,0 C498,26 250,18 250,38" fill="none" stroke="#cbbfa9"/></svg></div>
+      <div class="rule-box"><div class="big">Discern. Hold. Distil.</div><div class="small">The heart of Bodha.</div></div>
     </figure>
-    <blockquote class="quote reveal">“Dhṛti — the write gate — is a function of Buddhi, reasoning, not of Citta, storage. Citta is the field of impressions; its nature is associative and relational, not transactional.”<cite>Bodha design notes, v1.1</cite></blockquote>
   </div>
 </section>
 
