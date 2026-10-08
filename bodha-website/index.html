@@ -496,7 +496,7 @@ const N={
   manas:{dv:"मनस्",nm:"Manas",gl:"manas — working mind",mean:"The mind that gathers and arranges what the inputs bring, before judgment.",src:"Sāṅkhya",role:"Gathers what each turn needs: who the agent is, what it has learned, and what is happening now. It prepares; it never reasons.",st:"live"},
   buddhi:{dv:"बुद्धि",nm:"Buddhi",gl:"buddhi — the discerning intellect",mean:"In Sāṅkhya, the first and subtlest evolute of nature, and the seat of judgment.",src:"Sāṅkhya",role:"The AI agent itself. It reasons and responds, decides when to recall, and notices what is worth keeping.",st:"live"},
   dhi:{dv:"धी",nm:"Dhī",gl:"dhī — insight, thought",mean:"Insight; the reflective power of the intellect.",src:"Vedic usage",role:"Works out what is being asked, and plans how to find it. It never writes.",st:"live"},
-  dhrti:{dv:"धृति",nm:"Dhṛti",gl:"dhṛti — steadfastness",mean:"Firmness; the resolve that holds to what is right.",src:"Bhagavad Gītā 18.33",role:"The write gate. It decides what is worth remembering, and every memory it keeps carries the words it came from.",st:"live"},
+  dhrti:{dv:"धृति",nm:"Dhṛti",gl:"dhṛti — steadfastness",mean:"Firmness; the resolve that holds to what is right.",src:"Bhagavad Gītā 18.33",role:"The write gate. It decides what is worth remembering, and every memory it keeps carries the evidence it came from.",st:"live"},
   smrti:{dv:"स्मृति",nm:"Smṛti",gl:"smṛti — memory, recollection",mean:"“Memory is not letting slip an object once experienced.”",src:"Yoga Sūtra 1.11",role:"Carries out Dhī's plan: finds the memories that matter, and ranks them.",st:"live"},
   citta:{dv:"चित्त",nm:"Citta",gl:"citta — the memory substrate",mean:"The field that holds saṁskāras, the impressions each moment leaves behind.",src:"Yoga Sūtra 1.2",role:"The memory substrate: every memory, and every skill and playbook learned from them, with full history. It holds; it never decides. Corrections retire a memory rather than erase it.",st:"live"},
   dharana:{dv:"धारणा",nm:"Dhāraṇā",gl:"dhāraṇā — holding, concentration",mean:"The sixth of Patañjali's eight limbs: binding the mind to one place.",src:"Yoga Sūtra 3.1",role:"Consolidation in the background: brings related memories together, resolves what has changed, shapes repeated practice into skills and tendencies, and lets go of what no longer holds.",st:"dev"}
@@ -504,7 +504,7 @@ const N={
 const FLOWS={
   write:{nodes:["indriya","manas","buddhi","dhrti","citta"],steps:[
     ["indriya","A turn arrives through the Indriyas."],["manas","Manas gathers the context."],["buddhi","Buddhi reasons and responds."],
-    ["dhrti","Dhṛti weighs what is worth remembering, keeping the words each memory came from."],["dhrti","Each is judged: new, an update, or set aside when unsure."],["citta","Citta keeps it, with history. Nothing is overwritten."]]},
+    ["dhrti","Dhṛti weighs what is worth remembering, and keeps the evidence for each memory."],["dhrti","Each is judged: new, an update, or set aside when unsure."],["citta","Citta keeps it, with history. Nothing is overwritten."]]},
   recall:{nodes:["buddhi","dhi","smrti","citta","manas"],steps:[
     ["buddhi","Buddhi needs to remember something."],["dhi","Dhī works out what is being asked and plans the search."],["smrti","Smṛti searches Citta."],
     ["citta","Matching memories are drawn from Citta, with their history."],["smrti","Smṛti ranks them and returns the best."],["manas","Manas brings them into the context."],["buddhi","Buddhi answers, grounded in what was recalled."]]},
