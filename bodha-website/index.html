@@ -202,6 +202,52 @@ footer{padding:48px 0 56px;color:var(--ink-3);font-size:13.5px}
 footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
 .reveal.in{opacity:1;transform:none}
+/* kinds of memory */
+.kinds{display:grid;grid-template-areas:"top" "grid" "bot"}
+.kinds .side{grid-area:top;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.kinds .side.ag{grid-area:bot}
+.kinds .side .label{color:var(--saffron)}
+.kinds .side.ag .label{color:var(--indigo)}
+.kinds .side p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.kgrid{grid-area:grid;--t:46px;position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0 12px;margin:14px 0;padding:var(--t) 0}
+.kgrid::before,.kgrid::after{content:"";position:absolute;left:calc((100% - 72px)/14);right:calc((100% - 72px)/14)}
+.kgrid::before{top:0;border-top:1px solid var(--saffron)}
+.kgrid::after{bottom:0;border-top:1px solid var(--indigo)}
+.kgrid .k{position:relative;border:1px solid var(--ink);border-radius:10px;padding:12px 8px;text-align:center;background:#fff}
+.kgrid .k.st{border:1px dashed #b5a88f}
+.kgrid .k b{display:block;font-size:14px;font-weight:600}
+.kgrid .k span{display:block;font-size:12px;line-height:1.35;color:var(--ink-3);margin-top:4px}
+.kgrid .k i{position:absolute;left:50%;height:var(--t);border-left:1px solid}
+.kgrid .k i.p{bottom:calc(100% + 1px);border-color:rgba(196,86,26,.5)}
+.kgrid .k i.a{top:calc(100% + 1px);border-color:rgba(46,58,117,.5)}
+.kgrid .k i::after{content:"";position:absolute;left:-4px;width:7px;height:7px;border-radius:50%}
+.kgrid .k i.p::after{top:-4px;background:var(--saffron)}
+.kgrid .k i.a::after{bottom:-4px;background:var(--indigo)}
+.kgrid .grp{position:absolute;z-index:1;top:calc(var(--t) - 22px);text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.kgrid .grp span{background:#fff;padding:0 6px}
+.kgrid .grp.st{left:0;width:calc((100% - 72px)/7)}
+.kgrid .grp.lt{left:calc((100% - 72px)/7 + 12px);right:0}
+.kinds-close{border-top:1px solid var(--rule);margin-top:26px;padding-top:20px;text-align:center}
+.kinds-close p{font-family:var(--serif);font-weight:300;font-size:clamp(18px,2.2vw,21px);margin:0}
+.kinds-close small{display:block;margin-top:6px;font-size:13px;color:var(--ink-3)}
+@media (max-width:960px){
+  .kinds{grid-template-columns:1fr 1fr;grid-template-areas:"top bot" "grid grid";column-gap:16px}
+  .kinds .side{display:block}
+  .kinds .side.ag{text-align:right}
+  .kinds .side p{font-size:13px;margin-top:4px}
+  .kgrid{--t:20px;grid-template-columns:1fr;gap:10px;margin:14px 0 0;padding:24px var(--t) 0}
+  .kgrid::before,.kgrid::after{top:0;bottom:0;border-top:0}
+  .kgrid::before{left:0;right:auto;border-left:1px solid var(--saffron)}
+  .kgrid::after{right:0;left:auto;border-left:1px solid var(--indigo)}
+  .kgrid .k{display:flex;justify-content:center;align-items:baseline;gap:8px;flex-wrap:wrap;padding:10px 12px}
+  .kgrid .k span{margin-top:0}
+  .kgrid .k i{top:50%;bottom:auto;height:0;width:var(--t);border-left:0;border-top:1px solid}
+  .kgrid .k i.p{top:50%;bottom:auto;left:auto;right:calc(100% + 1px)}
+  .kgrid .k i.a{top:50%;left:calc(100% + 1px)}
+  .kgrid .k i.p::after{top:-4px;left:-4px}
+  .kgrid .k i.a::after{top:-4px;bottom:auto;left:auto;right:-4px}
+  .kgrid .grp.st,.kgrid .grp.lt{position:static;width:auto}
+}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.mandala .spin,.mandala .spin2,.mandala .spin3{animation:none}#mindsvg .edge{animation:none!important}}
 </style>
 </head>
@@ -375,11 +421,41 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 05 LIFECYCLE -->
+<!-- 05 KINDS OF MEMORY -->
+<section id="kinds">
+  <div class="container">
+    <div class="reveal">
+      <div class="label"><b>04</b> &nbsp;What Bodha remembers</div>
+      <h2>Every kind of memory, on both sides of the relationship.</h2>
+      <p class="lede" style="max-width:none">Bodha's vision spans the full range of memory: about the people an agent works with, and about the agent's own work.</p>
+    </div>
+    <figure class="reveal" aria-label="Seven kinds of memory, each held for people and for agents">
+      <figcaption><span class="label">Fig. 3 · Seven kinds, two sides</span></figcaption>
+      <div class="kinds">
+        <div class="side pe"><span class="label">People</span><p>People, organisations, relationships, events, and everything in and around their lives.</p></div>
+        <div class="kgrid">
+          <div class="grp st"><span>Short-term</span></div>
+          <div class="k st"><i class="p" aria-hidden="true"></i><b>Working</b><span>the here and now</span><i class="a" aria-hidden="true"></i></div>
+          <div class="grp lt"><span>Long-term</span></div>
+          <div class="k"><i class="p" aria-hidden="true"></i><b>Episodic</b><span>what happened</span><i class="a" aria-hidden="true"></i></div>
+          <div class="k"><i class="p" aria-hidden="true"></i><b>Semantic</b><span>what is known</span><i class="a" aria-hidden="true"></i></div>
+          <div class="k"><i class="p" aria-hidden="true"></i><b>Procedural</b><span>how to do things</span><i class="a" aria-hidden="true"></i></div>
+          <div class="k"><i class="p" aria-hidden="true"></i><b>Prospective</b><span>what to do later</span><i class="a" aria-hidden="true"></i></div>
+          <div class="k"><i class="p" aria-hidden="true"></i><b>External</b><span>documents and sources</span><i class="a" aria-hidden="true"></i></div>
+          <div class="k"><i class="p" aria-hidden="true"></i><b>Reflective</b><span>what is learned about oneself</span><i class="a" aria-hidden="true"></i></div>
+        </div>
+        <div class="side ag"><span class="label">Agents</span><p>Their work, experience, tools, and environment.</p></div>
+      </div>
+      <div class="kinds-close"><p>Every memory keeps its evidence and its history.</p><small>Parts of the agent side are still in development.</small></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 06 LIFECYCLE -->
 <section id="life">
   <div class="container">
     <div class="reveal">
-      <div class="label"><b>04</b> &nbsp;The life of a memory</div>
+      <div class="label"><b>05</b> &nbsp;The life of a memory</div>
       <h2>From a passing remark to a lasting tendency.</h2>
       <p class="lede">In the Yoga Sūtras, experience leaves <i>saṁskāras</i> — impressions — and repeated impressions become <i>vāsanās</i>, tendencies. Bodha follows the same arc.</p>
     </div>
@@ -396,11 +472,11 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 06 SUTRAS -->
+<!-- 07 SUTRAS -->
 <section id="sutras">
   <div class="container">
     <div class="reveal">
-      <div class="label"><b>05</b> &nbsp;Sūtras · सूत्र</div>
+      <div class="label"><b>06</b> &nbsp;Sūtras · सूत्र</div>
       <h2>Six threads the system is strung on.</h2>
       <p class="lede">A sūtra is a thread — a short rule meant to be held. These are Bodha's, enforced as invariants in code wherever they are live.</p>
     </div>
@@ -415,11 +491,11 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 07 STATUS -->
+<!-- 08 STATUS -->
 <section id="status">
   <div class="container">
     <div class="reveal">
-      <div class="label"><b>06</b> &nbsp;Where we are</div>
+      <div class="label"><b>07</b> &nbsp;Where we are</div>
       <h2>A working core, in private development.</h2>
       <p class="lede">The full pipeline runs end to end — perceive, ground, keep, recall — with more than 2,400 automated tests. Here is what is live, and what is next.</p>
     </div>
@@ -442,11 +518,11 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 08 NOTES -->
+<!-- 09 NOTES -->
 <section id="notes">
   <div class="container">
     <div class="reveal">
-      <div class="label"><b>07</b> &nbsp;Design notes</div>
+      <div class="label"><b>08</b> &nbsp;Design notes</div>
       <h2>Reading Patañjali as a systems architect.</h2>
       <p class="lede">Essays on the decisions behind Bodha — each faculty, each boundary, and what it took to make them run.</p>
     </div>
@@ -461,7 +537,7 @@ footer .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
   </div>
 </section>
 
-<!-- 09 FOUNDER / ACCESS -->
+<!-- 10 FOUNDER / ACCESS -->
 <section id="access" style="border-top:none;padding-top:24px">
   <div class="container">
     <div class="cta reveal">
