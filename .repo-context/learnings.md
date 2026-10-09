@@ -8,6 +8,14 @@ design record (`docs/`), not here. Beads (`bd`) traps live in the `beads`
 skill (`.claude/skills/beads/references/usage.md` §19). Entries dated before
 2026-09-30 were carried over from MVPavan/via.
 
+- T3 `delegate_task` with `runtimeMode: "approval-required"` pauses the
+  child on every command, even a file read, and the parent cannot approve
+  permission requests (`t3_pending_request_respond` answers only questions),
+  so the owner had to approve inside each child thread. For text-only work
+  (copy, design ideas, reviews of supplied content), put the context in the
+  brief, forbid commands, and use `runtimeMode: "auto"`; a Codex
+  gpt-6.1-sol run launched that way finished unattended (2026-10-09). Say
+  which mode you chose before launching a child that may edit files.
 - `codex exec -c` silently accepted invalid keys or values on CLI 0.144.1,
   including a bogus effort value. Validate safety-critical overrides before
   dispatch; prefer native `-s` for plain `exec`. `exec resume` and `exec review`
