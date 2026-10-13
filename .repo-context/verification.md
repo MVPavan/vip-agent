@@ -34,7 +34,17 @@ Run checks from the repo root.
    `.repo-context/` or `docs/` resolves in this repo, unless marked as a
    parent-repo path (`.repo-context/repo-map.md`).
 4. **Public-repo hygiene**: the diff has no secrets, credentials, personal data
-   or machine-local absolute paths.
+   or machine-local absolute paths. Beads are public too, through the tracked
+   `.beads/issues.jsonl` and `bd dolt push`, so before refreshing that file,
+   committing it or pushing Dolt, expect `private-name hits: 0`:
+
+   ```bash
+   python3 scripts/private-names-check.py .beads/issues.jsonl
+   ```
+
+   On a hit, reword the bead (owner decision 2026-10-13, vip-dc1.8); old Dolt
+   commits keep the earlier text. If hits keep recurring, stop tracking
+   `issues.jsonl` and stop Dolt pushes instead.
 5. **Hub sync** (after changing `scripts/hub-sync.py`): every project must
    report `OK`, and a second run must report `0 imported, 0 deleted`. Sources
    must be unchanged: Dolt HEAD, `git status`, `.beads/last-touched` mtime.
